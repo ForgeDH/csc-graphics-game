@@ -49,19 +49,24 @@ function main() {
 	manager.onProgress = function ( item, loaded, total ) {
 		console.log( item, loaded, total );
 	};
-/*
+
 	var geometry = new THREE.BoxGeometry( 1, 1, 1 );
 	var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 	var cube = new THREE.Mesh( geometry, material );
 	scene.add( cube );
-*/
 
-	var loader = new THREE.ObjectLoader();
-	
-	loader.load('plate.obj', function (object) {
+
+	var loader = new THREE.OBJLoader();
+	var material = new THREE.MeshBasicMaterial({color: 'gray', side: THREE.DoubleSide});
+	loader.load('https://raw.githubusercontent.com/ForgeDH/csc-graphics-game/master/WorkingTitle/plate.obj', function (object) {
+		object.traverse(function (child) {
+            if (child instanceof THREE.Mesh) {
+                child.material = material;
+            }
+        });
+		object.rotation.x = 45;
 		scene.add(object);
 		});
-	loader.setCrossOrigin('anonymous');
 
 	camera.position.z = 5;
 	
