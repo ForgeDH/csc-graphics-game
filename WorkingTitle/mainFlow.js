@@ -71,7 +71,8 @@ function main() {
 		*/
 		
 	GAME.entities.push(new Entity('https://raw.githubusercontent.com/ForgeDH/csc-graphics-game/master/WorkingTitle/Arenas/Arena1/Floors/floor1.json'));
-		
+	console.log(GAME.entities);
+	
 	GAME.camera.position.y = 5;
 	GAME.camera.position.z = 10;
 	function render() {
@@ -82,12 +83,12 @@ function main() {
 			console.log(INPUT.getNextEvent());
 		}
 		
-		for (obj in GAME.entities){
-			obj.updateMeshToBody();
+		for (var idx in GAME.entities){
+			GAME.entities[idx].updateMeshToBody();
 		}
 		
-		world.step(0.1666);
-		GAME.renderer.render( scene, camera );
+		GAME.world.step(0.1666);
+		GAME.renderer.render( GAME.scene, GAME.camera );
 	}
 	
 	INPUT.init();

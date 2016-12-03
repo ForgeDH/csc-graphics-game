@@ -34,16 +34,40 @@ class Entity{
 								console.log(this);
 								this.mesh = child;
 							}
-					});
+					}.bind(this));
 			GAME.scene.add(object);
-		});
+		}.bind(this));
+		
+		// load texture
+		if(JSONobj.textureURL != ""){
+			var manager = new THREE.LoadingManager();
+			manager.onProgress = function ( item, loaded, total ) {
+				console.log( item, loaded, total );
+			};
+			
+			var texture = new THREE.Texture();
+			var onProgress = function ( xhr ) {
+				if ( xhr.lengthComputable ) {
+					var percentComplete = xhr.loaded / xhr.total * 100;
+					console.log( Math.round(percentComplete, 2) + '% downloaded' );
+				}
+			};
+			var onError = function ( xhr ) {
+			};
+
+			var loader = new THREE.ImageLoader( manager );
+			loader.load( JSONobj.textureURL, function ( image ) {
+				texture.image = image;
+				texture.needsUpdate = true;
+			} );
+		}
 		
 		// load physics
 		var boxShape = new CANNON.Box(new CANNON.Vec3(JSONobj.boxSize.x,JSONobj.boxSize.y,JSONobj.boxSize.z));
 		this.body = new CANNON.Body({mass: JSONobj.mass, shape: boxShape});
 		this.body.position.set(JSONobj.boxPos.x, JSONobj.boxPos.y, JSONobj.boxPos.z);
-		this.body.rotation.set(JSONobj.boxRot.x, JSONobj.boxRot.y, JSONobj.boxRot.z);
-		GAME.world.add(cube.body);
+		this.body.quaternion.setFromEuler(JSONobj.boxRot.x, JSONobj.boxRot.y, JSONobj.boxRot.z, "XYZ");
+		GAME.world.add(this.body);
 	}
 	
 	updateMeshToBody(){
@@ -51,9 +75,7 @@ class Entity{
 		this.mesh.position.y = this.body.position.y;
 		this.mesh.position.z = this.body.position.z;
 		
-		this.mesh.rotation.x = this.body.rotation.x;
-		this.mesh.rotation.y = this.body.rotation.y;
-		this.mesh.rotation.z = this.body.rotation.z;
+		this.body.quaternion.toEuler(this.mesh.rotation, "YZX");
 	}
 }
 
