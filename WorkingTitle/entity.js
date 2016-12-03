@@ -26,7 +26,7 @@ class Entity{
 		// load model
 		var JSONobj = getJSONFile(JSONurl);
 		var loader = new THREE.OBJLoader();
-		var material = new THREE.MeshBasicMaterial({color: 'gray', side: THREE.DoubleSide});
+		var material = new THREE.MeshPhongMaterial({color: 0xdddddd, specular: 0xdddddd, shininess: 30, shading: THREE.FlatShading});
 		loader.load(JSONobj.modelURL, function (object) {
 			object.traverse(function (child) {
 							if (child instanceof THREE.Mesh) {
@@ -68,6 +68,9 @@ class Entity{
 		this.body.position.set(JSONobj.boxPos.x, JSONobj.boxPos.y, JSONobj.boxPos.z);
 		this.body.quaternion.setFromEuler(JSONobj.boxRot.x, JSONobj.boxRot.y, JSONobj.boxRot.z, "XYZ");
 		GAME.world.add(this.body);
+		
+		// load tick function
+		this.tick = tickFunctions[JSONobj.tickFunc];
 	}
 	
 	updateMeshToBody(){
