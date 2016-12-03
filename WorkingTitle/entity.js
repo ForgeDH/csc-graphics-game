@@ -23,20 +23,8 @@ class Entity{
 			}
 		} 
 		
-		// load model
+		// load JSON
 		var JSONobj = getJSONFile(JSONurl);
-		var loader = new THREE.OBJLoader();
-		var material = new THREE.MeshPhongMaterial({color: 0xdddddd, specular: 0xdddddd, shininess: 30, shading: THREE.FlatShading});
-		loader.load(JSONobj.modelURL, function (object) {
-			object.traverse(function (child) {
-							if (child instanceof THREE.Mesh) {
-								child.material = material;
-								console.log(this);
-								this.mesh = child;
-							}
-					}.bind(this));
-			GAME.scene.add(object);
-		}.bind(this));
 		
 		// load texture
 		if(JSONobj.textureURL != ""){
@@ -61,6 +49,20 @@ class Entity{
 				texture.needsUpdate = true;
 			} );
 		}
+		
+		// load model
+		var loader = new THREE.OBJLoader();
+		var material = new THREE.MeshPhongMaterial({color: 0xdddddd, specular: 0xdddddd, shininess: 30, shading: THREE.FlatShading});
+		loader.load(JSONobj.modelURL, function (object) {
+			object.traverse(function (child) {
+							if (child instanceof THREE.Mesh) {
+								child.material.map = texture;
+								console.log(this);
+								this.mesh = child;
+							}
+					}.bind(this));
+			GAME.scene.add(object);
+		}.bind(this));
 		
 		// load physics
 		var boxShape = new CANNON.Box(new CANNON.Vec3(JSONobj.boxSize.x,JSONobj.boxSize.y,JSONobj.boxSize.z));
