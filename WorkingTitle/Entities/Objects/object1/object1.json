@@ -6,4 +6,5 @@
 	"boxPos":{"x":0, "y":10, "z":0},
 	"boxRot":{"x":0, "y":0, "z":0},
 	"tickFunc":"boxTick"
+	
 }

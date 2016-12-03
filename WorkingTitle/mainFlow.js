@@ -85,4 +85,5 @@ function main() {
 	
 	INPUT.init();
 	render();
+	
 } // end main
