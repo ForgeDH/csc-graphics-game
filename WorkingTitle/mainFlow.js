@@ -1,78 +1,95 @@
 /* GLOBAL CONSTANTS AND VARIABLES */
+var GAME = {};
 
-/* assignment specific globals */
-const INPUT_TRIANGLES_URL = "https://ncsucgclass.github.io/prog3/triangles.json"; // triangles file loc
-const INPUT_SPHERES_URL = "https://ncsucgclass.github.io/prog3/spheres.json"; // spheres file loc
+GAME.allObjects = [];			// everything in the world
+GAME.entities = [];				// things that need processing every tick (player, enemies, projectiles, etc.)
+GAME.structures = [];			// things that are static (walls, floors, etc.)
 
-// ASSIGNMENT HELPER FUNCTIONS
+GAME.player;
 
-// get the JSON file from the passed URL
-function getJSONFile(url,descr) {
-    try {
-        if ((typeof(url) !== "string") || (typeof(descr) !== "string"))
-            throw "getJSONFile: parameter not a string";
-        else {
-            var httpReq = new XMLHttpRequest(); // a new http request
-            httpReq.open("GET",url,false); // init the request
-            httpReq.send(null); // send the request
-            var startTime = Date.now();
-            while ((httpReq.status !== 200) && (httpReq.readyState !== XMLHttpRequest.DONE)) {
-                if ((Date.now()-startTime) > 3000)
-                    break;
-            } // until its loaded or we time out after three seconds
-            if ((httpReq.status !== 200) || (httpReq.readyState !== XMLHttpRequest.DONE))
-                throw "Unable to open "+descr+" file!";
-            else
-                return JSON.parse(httpReq.response); 
-        } // end if good params
-    } // end try    
-    
-    catch(e) {
-        console.log(e);
-        return(String.null);
-    }
-} // end get input spheres
 
+/* INPUTS */
 
 /* MAIN -- HERE is where execution begins after window load */
 
 function main() {
   
-	var scene = new THREE.Scene();
-	var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+	// create THREE scene and camera
+	GAME.scene = new THREE.Scene();
+	GAME.camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
-	var renderer = new THREE.WebGLRenderer();
-	renderer.setSize( window.innerWidth * 0.9, window.innerHeight * 0.9 );
-	document.body.appendChild( renderer.domElement );
+	// create THREE renderer and put it in the webpage
+	GAME.renderer = new THREE.WebGLRenderer();
+	GAME.renderer.setSize( window.innerWidth * 0.9, window.innerHeight * 0.9 );
+	document.body.appendChild( GAME.renderer.domElement );
 
+	// create CANNON world
+	GAME.world = new CANNON.World();
+	GAME.world.gravity.set(0,-1,0);
+	GAME.world.broadphase = new CANNON.NaiveBroadphase();
+	
+	/*
+	// create THREE file loading manager
 	var manager = new THREE.LoadingManager();
 	manager.onProgress = function ( item, loaded, total ) {
 		console.log( item, loaded, total );
 	};
 
+	// create a box
+	var cube = {};
+	entities.push(cube);
+	
+	// properties
 	var geometry = new THREE.BoxGeometry( 1, 1, 1 );
 	var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-	var cube = new THREE.Mesh( geometry, material );
-	scene.add( cube );
+	cube.mesh = new THREE.Mesh( geometry, material );
+	cube.mesh.position.y = 5;
+	//physics
+	var boxShape = new CANNON.Box(new CANNON.Vec3(1,1,1));
+	cube.body = new CANNON.Body({mass: 1, shape: boxShape});
+	cube.body.position.set(cube.mesh.position.x, cube.mesh.position.y, cube.mesh.position.z);
+	world.add(cube.body);
+	
+	scene.add( cube.mesh );
 
-
+	// load the test floor
 	var loader = new THREE.OBJLoader();
 	var material = new THREE.MeshBasicMaterial({color: 'gray', side: THREE.DoubleSide});
 	loader.load('https://raw.githubusercontent.com/ForgeDH/csc-graphics-game/master/WorkingTitle/plate.obj', function (object) {
 		object.traverse(function (child) {
             if (child instanceof THREE.Mesh) {
-                child.material = material;
+              child.material = material;
             }
         });
-		object.rotation.x = 45;
+		object.rotation.x = 0;
 		scene.add(object);
 		});
-
-	camera.position.z = 5;
-	
+		//physics
+		boxShape = new CANNON.Box(new CANNON.Vec3(100,0.5,100));
+		var floorBody = new CANNON.Body({mass: 0, shape: boxShape});
+		world.add(floorBody);
+		*/
+		
+	GAME.entities.push(new Entity('https://raw.githubusercontent.com/ForgeDH/csc-graphics-game/master/WorkingTitle/Arenas/Arena1/Floors/floor1.json'));
+		
+	GAME.camera.position.y = 5;
+	GAME.camera.position.z = 10;
 	function render() {
 		requestAnimationFrame( render );
-		renderer.render( scene, camera );
+		
+		//handle input
+		while (INPUT.eventsToHandle() == true){
+			console.log(INPUT.getNextEvent());
+		}
+		
+		for (obj in GAME.entities){
+			obj.updateMeshToBody();
+		}
+		
+		world.step(0.1666);
+		GAME.renderer.render( scene, camera );
 	}
+	
+	INPUT.init();
 	render();
 } // end main

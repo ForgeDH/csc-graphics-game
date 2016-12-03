@@ -1,0 +1,8 @@
+{
+	modelURL:"https://raw.githubusercontent.com/ForgeDH/csc-graphics-game/master/WorkingTitle/plate.obj",
+	textureURL:"",
+	mass:0,
+	boxSize:{x:100, y:0.5, z:100},
+	boxPos:{x:0, y:0, z:0},
+	boxRot:{x:0, y:0, z:0}
+}

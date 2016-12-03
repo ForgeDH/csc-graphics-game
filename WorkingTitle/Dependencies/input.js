@@ -37,7 +37,7 @@ var INPUT = {
     return INPUT.rButton;
   },
   eventsToHandle: function() {
-    return INPUT.queue.size > 0;
+    return INPUT.queue.length > 0;
   },
   getNextEvent: function() {
     return INPUT.queue.shift();
@@ -60,13 +60,43 @@ var INPUT = {
   },
   init: function() {
     INPUT.queue = [];
+	
+	/**********************************************************************************
+	CODE MODIFIED FROM https://github.com/mdn/pointer-lock-demo/blob/gh-pages/app.js
+	**********************************************************************************/
+	document.querySelector('canvas').onclick = function(event) {
+	  INPUT.mouseX = event.offsetX;
+	  INPUT.mouseY = event.offsetY;
+	  document.querySelector('canvas').requestPointerLock();
+	};
+
+	// pointer lock event listeners
+
+	// Hook pointer lock state change events for different browsers
+	document.addEventListener('pointerlockchange', function() {
+	  if (document.pointerLockElement === document.querySelector('canvas') ||
+		  document.mozPointerLockElement === document.querySelector('canvas')) {
+		document.addEventListener("mousemove", __updatePosition, false);
+	  } else {
+		document.removeEventListener("mousemove", __updatePosition, false);
+	  }
+	}, false);
+
+	function __updatePosition(e) {
+	  INPUT.mouseX += e.movementX;
+	  INPUT.mouseY += e.movementY;
+	  INPUT.mouseChangeSinceLastGetX += e.movementX;
+	  INPUT.mouseChangeSinceLastGetY += e.movementY;
+	}
   }
 };
 
 document.addEventListener("keydown", 
   function(event) {
-    INPUT.queue.push(event);
-    INPUT.state.set(event.key, true);
+		if(INPUT.isKeyDown(event.key)){
+			INPUT.queue.push(event);
+			INPUT.state.set(event.key, true);
+		}
   }
 );
 
@@ -97,31 +127,3 @@ document.addEventListener("mouseup",
   }
 );
 
-
-/**********************************************************************************
-CODE MODIFIED FROM https://github.com/mdn/pointer-lock-demo/blob/gh-pages/app.js
-**********************************************************************************/
-document.querySelector('canvas').onclick = function(event) {
-  INPUT.mouseX = event.offsetX;
-  INPUT.mouseY = event.offsetY;
-  document.querySelector('canvas').requestPointerLock();
-};
-
-// pointer lock event listeners
-
-// Hook pointer lock state change events for different browsers
-document.addEventListener('pointerlockchange', function() {
-  if (document.pointerLockElement === canvas ||
-      document.mozPointerLockElement === canvas) {
-    document.addEventListener("mousemove", __updatePosition, false);
-  } else {
-    document.removeEventListener("mousemove", __updatePosition, false);
-  }
-}, false);
-
-function __updatePosition(e) {
-  INPUT.mouseX += e.movementX;
-  INPUT.mouseY += e.movementY;
-  INPUT.mouseChangeSinceLastGetX += e.movementX;
-  INPUT.mouseChangeSinceLastGetY += e.movementY;
-}
