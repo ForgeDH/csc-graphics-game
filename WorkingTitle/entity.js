@@ -1,7 +1,4 @@
 class Entity{
-	var mesh;
-	var body;
-	
 	constructor(JSONurl){
 		function getJSONFile(url) {
 			try {
