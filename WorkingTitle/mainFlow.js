@@ -41,7 +41,8 @@ function main() {
 		
 		//handle input
 		while (INPUT.eventsToHandle() == true){
-			console.log(INPUT.getNextEvent());
+			//console.log(INPUT.getNextEvent());
+			INPUT.getNextEvent();
 		}
 		
 		for (var idx in GAME.entities){

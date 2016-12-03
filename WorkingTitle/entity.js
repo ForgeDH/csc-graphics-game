@@ -44,6 +44,7 @@ class Entity{
 			};
 
 			var loader = new THREE.ImageLoader( manager );
+			loader.setCrossOrigin("anonymous");
 			loader.load( JSONobj.textureURL, function ( image ) {
 				texture.image = image;
 				texture.needsUpdate = true;
@@ -56,8 +57,11 @@ class Entity{
 		loader.load(JSONobj.modelURL, function (object) {
 			object.traverse(function (child) {
 							if (child instanceof THREE.Mesh) {
-								child.material.map = texture;
-								console.log(this);
+								if(texture){
+									child.material.map = texture;
+								} else {
+									child.material = material;
+								}
 								this.mesh = child;
 							}
 					}.bind(this));
