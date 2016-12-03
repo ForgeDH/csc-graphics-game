@@ -15,8 +15,8 @@ var Arena1 = ["floor1.json"];
 var ARENAS = {"Arena1":Arena1};
 
 /* ENTITY FILE STRUCTURE */
-var OBJECTS = ["object1.json"]
-var ENEMIES = [];
+var OBJECTS = {"object1":"object1.json"};
+var ENEMIES = {};
 var ENTITIES = {"Enemies":ENEMIES, "Objects":OBJECTS};
 
 /* MAIN -- HERE is where execution begins after window load */
