@@ -45,6 +45,7 @@ function main() {
 		}
 		
 		for (var idx in GAME.entities){
+			GAME.entities[idx].tick();
 			GAME.entities[idx].updateMeshToBody();
 		}
 		
