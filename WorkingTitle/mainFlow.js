@@ -54,7 +54,7 @@ function main() {
 	for (var entity in ENTITIES){
 		for (var obj in OBJECTS){
 			console.log(BASE_URL + 'Entities/Objects/' + obj + '/' + ENTITIES[entity][obj]);
-			GAME.entities.push(new Entity(BASE_URL + 'Entities/Objects/' + obj + '/' + ENTITIES[entity][obj]));
+			GAME.entities.push(new Entity(BASE_URL + 'Entities/Objects/' + obj + '/' + ENTITIES[entity]));
 		}
 		for (var enemy in ENEMIES){
 			console.log(BASE_URL + 'Entities/Enemies/' + enemy + '/' + ENTITIES[entity][enemy]);
