@@ -93,7 +93,7 @@ var INPUT = {
 
 document.addEventListener("keydown", 
   function(event) {
-		if(INPUT.isKeyDown(event.key)){
+		if(!INPUT.state.has(key) || INPUT.isKeyDown(event.key)){
 			INPUT.queue.push(event);
 			INPUT.state.set(event.key, true);
 		}
