@@ -1,6 +1,6 @@
 {
 	"modelURL":"https://raw.githubusercontent.com/ForgeDH/csc-graphics-game/master/WorkingTitle/box.obj",
-	"textureURL":"https://rawgit.com/ForgeDH/csc-graphics-game/master/WorkingTitle/Entities/Objects/object1/MELogo.jpg",
+	"textureURL":"",
 	"mass":1,
 	"boxSize":{"x":1, "y":1, "z":1},
 	"boxPos":{"x":0, "y":10, "z":0},
