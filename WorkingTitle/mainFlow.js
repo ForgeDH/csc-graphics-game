@@ -17,7 +17,6 @@ var ARENAS = {"Arena1":Arena1};
 /* ENTITY FILE STRUCTURE */
 var OBJECTS = {"object1":"object1.json"};
 var ENEMIES = {};
-var ENTITIES = {"Enemies":ENEMIES, "Objects":OBJECTS};
 
 /* MAIN -- HERE is where execution begins after window load */
 
@@ -39,27 +38,19 @@ function main() {
 	GAME.world = new CANNON.World();
 	GAME.world.gravity.set(0,-1,0);
 	GAME.world.broadphase = new CANNON.NaiveBroadphase();
-
-	// add entities manually
-	//GAME.entities.push(new Entity(BASE_URL + 'Arenas/Arena1/Floors/floor1.json'));
-	//GAME.entities.push(new Entity(BASE_URL + 'Entities/Objects/Object1/Object1.json'));
 	
 	// add entities (all for now)
 	for (var arena in ARENAS){
 		for (var obj in ARENAS[arena]){
-			console.log(BASE_URL + 'Arenas/' + arena + '/' + ARENAS[arena][obj]);
+			// TODO SWITCH OFF OF ENTITIES
 			GAME.entities.push(new Entity(BASE_URL + 'Arenas/' + arena + '/' + ARENAS[arena][obj]));
 		}
 	}
-	for (var entity in ENTITIES){
-		for (var obj in OBJECTS){
-			console.log(BASE_URL + 'Entities/Objects/' + obj + '/' + ENTITIES[entity][obj]);
-			GAME.entities.push(new Entity(BASE_URL + 'Entities/Objects/' + obj + '/' + OBJECTS[obj]));
-		}
-		for (var enemy in ENEMIES){
-			console.log(BASE_URL + 'Entities/Enemies/' + enemy + '/' + ENTITIES[entity][enemy]);
-			GAME.entities.push(new Entity(BASE_URL + 'Entities/Enemies/' + enemy + '/' + ENTITIES[entity][enemy]));
-		}
+	for (var obj in OBJECTS){
+		GAME.entities.push(new Entity(BASE_URL + 'Entities/Objects/' + obj + '/' + OBJECTS[obj]));
+	}
+	for (var enemy in ENEMIES){
+		GAME.entities.push(new Entity(BASE_URL + 'Entities/Enemies/' + enemy + '/' + ENEMIES[enemy]));
 	}
 	console.log(GAME.entities);
 	
