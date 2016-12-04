@@ -9,9 +9,12 @@ tickFunctions.enemyTick = function(){
 	var currLoc = this.body.position;
 	var target = GAME.player.body.position.clone();
 	
+	var yVel = this.body.velocity.y;
+	
 	target.vsub(currLoc, target);
 	target.normalize();
 	target.scale(ms, target);
+	target.y = yVel;
 	
 	this.body.velocity = target;
 };
