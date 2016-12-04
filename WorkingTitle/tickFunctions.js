@@ -10,13 +10,10 @@ tickFunctions.enemyTick = function(){
 	var target = GAME.player.body.position;
 	
 	target.vsub(currLoc, target);
-	target.z = currLoc.z;
 	target.normalize();
 	target.scale(ms, target);
 	
 	this.body.velocity = target;
-	
-	console.log(target);
 };
 
 tickFunctions.boxTick = function(){

@@ -74,10 +74,9 @@ var menuSceneLoop = function(){
   }
   this.hudBitmap.drawImage(this.crosshair, INPUT.getMouseX()-32, INPUT.getMouseY()-32);
 	this.hudTexture.needsUpdate = true;
-
   // Render HUD on top of the scene.
   GAME.renderer.render(this.sceneHUD, this.cameraHUD);
-  
+	
 	//handle input
 	while (INPUT.eventsToHandle() == true){
 		//console.log(INPUT.getNextEvent());
