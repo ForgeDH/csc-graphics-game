@@ -6,7 +6,7 @@ tickFunctions.noTick = function(){
 tickFunctions.boxTick = function(){
 	// POSITION
 	var ms = 0.5;
-	var speedCap = 1;
+	var speedCap = 3;
 	var upVec = new CANNON.Vec3(0,1,0);
 	
 	var facingAngle = this.mesh.yawObj.rotation.y;
