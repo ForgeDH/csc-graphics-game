@@ -80,6 +80,12 @@ class Entity{
 		
 		// load tick function
 		this.tick = tickFunctions[JSONobj.tickFunc];
+		
+		// load miscellaneous
+		if(JSONobj.health !== undefined){
+			this.health = JSONobj.health;
+			console.log(this.health);
+		}
 	}
 	
 	updateMeshToBody(){

@@ -17,6 +17,18 @@ tickFunctions.enemyTick = function(){
 	target.y = yVel;
 	
 	this.body.velocity = target;
+	
+	this.health -= 1;
+	
+	if(this.health <= 0){
+		GAME.scene.remove(this.mesh);
+		GAME.world.remove(this.body);
+		
+		var idx = GAME.entities.indexOf(this);
+		if (idx > -1){
+			GAME.entities.splice(idx, 1);
+		}
+	}
 };
 
 tickFunctions.boxTick = function(){
