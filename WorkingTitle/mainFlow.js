@@ -15,7 +15,7 @@ var ARENAS = {"Arena1":Arena1};
 
 /* ENTITY FILE STRUCTURE */
 var OBJECTS = {};
-var ENEMIES = {};
+var ENEMIES = {"enemy1":"enemy1.json"};
 
 /* MAIN -- HERE is where execution begins after window load */
 function main() {
