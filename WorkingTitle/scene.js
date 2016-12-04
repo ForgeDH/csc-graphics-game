@@ -115,7 +115,9 @@ var gameSceneInit = function(){
 		GAME.entities.push(new Entity(BASE_URL + 'Entities/Objects/' + obj + '/' + OBJECTS[obj]));
 	}
 	for (var enemy in ENEMIES){
-		GAME.entities.push(new Entity(BASE_URL + 'Entities/Enemies/' + enemy + '/' + ENEMIES[enemy]));
+		for (var x = 0; x < 20; x++){
+			GAME.entities.push(new Entity(BASE_URL + 'Entities/Enemies/' + enemy + '/' + ENEMIES[enemy]));
+		}
 	}
 	console.log(GAME.entities);
 	

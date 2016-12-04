@@ -7,7 +7,7 @@ tickFunctions.enemyTick = function(){
 	var ms = 1;
 	
 	var currLoc = this.body.position;
-	var target = GAME.player.body.position;
+	var target = GAME.player.body.position.clone();
 	
 	target.vsub(currLoc, target);
 	target.normalize();
