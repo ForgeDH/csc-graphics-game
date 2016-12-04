@@ -21,12 +21,15 @@ tickFunctions.enemyTick = function(){
 	this.health -= 1;
 	
 	if(this.health <= 0){
-		GAME.scene.remove(this.mesh);
-		GAME.world.remove(this.body);
-		
 		var idx = GAME.entities.indexOf(this);
 		if (idx > -1){
 			GAME.entities.splice(idx, 1);
+		}
+		
+		if(this.mesh.parent.killable){
+			console.log("KILLED");
+			GAME.world.remove(this.body);
+			GAME.scene.remove(this.mesh.parent);
 		}
 	}
 };

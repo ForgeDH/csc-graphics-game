@@ -51,6 +51,12 @@ class Entity{
 			} );
 		}
 		
+		// load miscellaneous
+		if(JSONobj.health !== undefined){
+			this.health = JSONobj.health;
+			console.log(this.health);
+		}
+		
 		// load model
 		var loader = new THREE.OBJLoader();
 		var material = new THREE.MeshPhongMaterial({color: 0xdddddd, specular: 0xdddddd, shininess: 30, shading: THREE.FlatShading});
@@ -65,6 +71,12 @@ class Entity{
 								this.mesh = child;
 							}
 					}.bind(this));
+			//if(this.health !== undefined){
+			//	this.killable = true;
+			//}
+			if(this.health !== undefined){
+				object.killable = true;
+			}
 			GAME.scene.add(object);
 			if(isPlayer !== undefined){
 				setTimeout(Entity.initPlayer, 100);
@@ -80,12 +92,6 @@ class Entity{
 		
 		// load tick function
 		this.tick = tickFunctions[JSONobj.tickFunc];
-		
-		// load miscellaneous
-		if(JSONobj.health !== undefined){
-			this.health = JSONobj.health;
-			console.log(this.health);
-		}
 	}
 	
 	updateMeshToBody(){
