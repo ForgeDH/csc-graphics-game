@@ -1,5 +1,5 @@
 class Entity{
-	constructor(JSONurl){
+	constructor(JSONurl, isPlayer){
 		function getJSONFile(url) {
 			try {
 					if (typeof(url) !== "string")
@@ -66,6 +66,9 @@ class Entity{
 							}
 					}.bind(this));
 			GAME.scene.add(object);
+			if(isPlayer !== undefined){
+				setTimeout(Entity.initPlayer, 100);
+			}
 		}.bind(this));
 		
 		// load physics
@@ -84,7 +87,22 @@ class Entity{
 		this.mesh.position.y = this.body.position.y;
 		this.mesh.position.z = this.body.position.z;
 		
-		this.body.quaternion.toEuler(this.mesh.rotation, "YZX");
+		//this.body.quaternion.toEuler(this.mesh.rotation, "YZX");
+	}
+	
+	static initPlayer(){
+		GAME.camera.position.y = 2;
+		GAME.camera.position.z = 5;
+		
+		var pitchObj = new THREE.Object3D();
+		pitchObj.add(GAME.camera);
+		
+		var yawObj = new THREE.Object3D();
+		yawObj.add(pitchObj);
+		
+		GAME.player.mesh.pitchObj = pitchObj;
+		GAME.player.mesh.yawObj = yawObj;
+		GAME.player.mesh.add(yawObj);
 	}
 }
 

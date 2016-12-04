@@ -15,7 +15,7 @@ var Arena1 = ["floor1.json"];
 var ARENAS = {"Arena1":Arena1};
 
 /* ENTITY FILE STRUCTURE */
-var OBJECTS = {"object1":"object1.json"};
+var OBJECTS = {};
 var ENEMIES = {};
 
 /* MAIN -- HERE is where execution begins after window load */
@@ -54,8 +54,11 @@ function main() {
 	}
 	console.log(GAME.entities);
 	
-	GAME.camera.position.y = 5;
-	GAME.camera.position.z = 10;
+	// load player
+	GAME.player = new Entity(BASE_URL + 'Entities/Objects/object1/object1.json', true);
+	GAME.entities.push(GAME.player);
+	//Entity.initPlayer();
+	
 	function render() {
 		requestAnimationFrame( render );
 		
