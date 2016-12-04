@@ -18,9 +18,14 @@ var OBJECTS = {};
 var ENEMIES = {};
 
 /* MAIN -- HERE is where execution begins after window load */
-
 function main() {
-	activeScene = new Scene(gameSceneInit, gameSceneLoop);
+
+	// create THREE renderer and put it in the webpage
+	GAME.renderer = new THREE.WebGLRenderer();
+	GAME.renderer.setSize( window.innerWidth * 0.9, window.innerHeight * 0.9 );
+	document.body.appendChild( GAME.renderer.domElement );
+	
+	activeScene = new Scene(menuSceneInit, menuSceneLoop);
 	
 	function render() {
 		requestAnimationFrame( render );
