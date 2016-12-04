@@ -58,7 +58,6 @@ var gameSceneLoop = function(){
 		//console.log(INPUT.getNextEvent());
 		INPUT.getNextEvent();
 	}
-	
 	for (var idx in GAME.entities){
 		GAME.entities[idx].tick();
 		GAME.entities[idx].updateMeshToBody();

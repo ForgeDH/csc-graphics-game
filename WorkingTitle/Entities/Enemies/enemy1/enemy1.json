@@ -3,7 +3,7 @@
 	"textureURL":"https://rawgit.com/ForgeDH/csc-graphics-game/master/WorkingTitle/Entities/Enemies/enemy1/DH.jpg",
 	"mass":1,
 	"boxSize":{"x":1, "y":1, "z":1},
-	"boxPos":{"x":15, "y":15, "z":-10},
+	"boxPos":{"x":15, "y":15, "z":-20},
 	"boxRot":{"x":0, "y":0, "z":0},
-	"tickFunc":"noTick"
+	"tickFunc":"enemyTick"
 }

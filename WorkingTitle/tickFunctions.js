@@ -3,6 +3,22 @@ var tickFunctions = {};
 tickFunctions.noTick = function(){
 };
 
+tickFunctions.enemyTick = function(){
+	var ms = 1;
+	
+	var currLoc = this.body.position;
+	var target = GAME.player.body.position;
+	
+	target.vsub(currLoc, target);
+	target.z = currLoc.z;
+	target.normalize();
+	target.scale(ms, target);
+	
+	this.body.velocity = target;
+	
+	console.log(target);
+};
+
 tickFunctions.boxTick = function(){
 	// POSITION
 	var ms = 0.5;
@@ -34,10 +50,6 @@ tickFunctions.boxTick = function(){
 		this.body.velocity.normalize();
 		this.body.velocity.scale(speedCap, this.body.velocity);
 	}
-	
-	//GAME.camera.position.x = this.body.position.x;
-	//GAME.camera.position.y = this.body.position.y+2;
-	//GAME.camera.position.z = this.body.position.z+5;
 	
 	// ROTATION	
 	if(this.mesh.pitchObj !== undefined){
