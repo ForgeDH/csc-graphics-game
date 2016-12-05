@@ -54,7 +54,7 @@ class Entity{
 		// load miscellaneous
 		if(JSONobj.health !== undefined){
 			this.health = JSONobj.health;
-			console.log(this.health);
+			this.currentHealth = JSONobj.health;
 		}
 		
 		// load model
@@ -71,9 +71,6 @@ class Entity{
 								this.mesh = child;
 							}
 					}.bind(this));
-			//if(this.health !== undefined){
-			//	this.killable = true;
-			//}
 			if(this.health !== undefined){
 				object.killable = true;
 			}

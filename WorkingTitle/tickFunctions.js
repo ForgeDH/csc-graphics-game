@@ -1,5 +1,19 @@
 var tickFunctions = {};
 
+var killObject = function(deadObj){
+	if(deadObj.mesh.parent.killable){
+		var idx = GAME.entities.indexOf(deadObj);
+		if (idx > -1){
+			GAME.entities.splice(idx, 1);
+		}
+		
+		console.log("KILLED");
+		GAME.world.remove(deadObj.body);
+		GAME.scene.remove(deadObj.mesh.parent);
+	}
+}
+
+
 tickFunctions.noTick = function(){
 };
 
@@ -7,6 +21,10 @@ tickFunctions.enemyTick = function(){
 	var ms = 1;
 	
 	var currLoc = this.body.position;
+	if(currLoc.y < -400){
+		killObject(this);
+	}
+	
 	var target = GAME.player.body.position.clone();
 	
 	var yVel = this.body.velocity.y;
@@ -18,23 +36,12 @@ tickFunctions.enemyTick = function(){
 	
 	this.body.velocity = target;
 	
-	this.health -= 1;
-	
-	if(this.health <= 0){
-		var idx = GAME.entities.indexOf(this);
-		if (idx > -1){
-			GAME.entities.splice(idx, 1);
-		}
-		
-		if(this.mesh.parent.killable){
-			console.log("KILLED");
-			GAME.world.remove(this.body);
-			GAME.scene.remove(this.mesh.parent);
-		}
+	if(this.currentHealth <= 0){
+		killObject(this);
 	}
 };
 
-tickFunctions.boxTick = function(){
+tickFunctions.boxTick = function(actions){
 	// POSITION
 	var ms = 0.5;
 	var speedCap = 3;
@@ -48,6 +55,7 @@ tickFunctions.boxTick = function(){
 	forwardVec.cross(upVec, rightVec);
 	rightVec.normalize();
 	
+	// MOVEMENT
 	if(INPUT.isKeyDown("w")){
 		this.body.velocity.vadd(forwardVec.scale(ms, forwardVec), this.body.velocity);
 	}
@@ -70,5 +78,18 @@ tickFunctions.boxTick = function(){
 	if(this.mesh.pitchObj !== undefined){
 		this.mesh.pitchObj.rotation.x -= INPUT.getMouseYChange()/100;
 		this.mesh.yawObj.rotation.y -= INPUT.getMouseXChange()/100;
+	}
+	
+	// ACTIONS
+	while(actions.length > 0){
+		var action = actions.shift();
+		if(action.buttons == 1){
+			console.log("ATTACK");
+			for (var entity in GAME.entities){
+				if(GAME.entities[entity].mesh.parent.killable){
+					GAME.entities[entity].currentHealth -= 26;
+				}
+			}
+		}
 	}
 }

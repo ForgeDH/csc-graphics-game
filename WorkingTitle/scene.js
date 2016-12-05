@@ -123,7 +123,6 @@ var gameSceneInit = function(){
 			GAME.entities.push(new Entity(BASE_URL + 'Entities/Enemies/' + enemy + '/' + ENEMIES[enemy]));
 		}
 	}
-	console.log(GAME.entities);
 	
 	// load player
 	GAME.player = new Entity(BASE_URL + 'Entities/Objects/object1/object1.json', true);
@@ -132,12 +131,17 @@ var gameSceneInit = function(){
 
 var gameSceneLoop = function(){
 	//handle input
+	var inputList = [];
 	while (INPUT.eventsToHandle() == true){
 		//console.log(INPUT.getNextEvent());
-		INPUT.getNextEvent();
+		inputList.push(INPUT.getNextEvent());
 	}
 	for (var idx in GAME.entities){
-		GAME.entities[idx].tick();
+		if(GAME.entities[idx] === GAME.player){
+			GAME.entities[idx].tick(inputList);
+		} else{
+			GAME.entities[idx].tick();
+		}
 		GAME.entities[idx].updateMeshToBody();
 	}
 	
