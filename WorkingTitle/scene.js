@@ -90,6 +90,11 @@ var menuSceneLoop = function(){
 	}
 }
 
+var addEntity = function(entity){
+	GAME.scene.add(entity.mesh.parent);
+	GAME.world.add(entity.body);
+}
+
 var gameSceneInit = function(){
 		// create THREE scene, light and camera
 	GAME.scene = new THREE.Scene();
@@ -113,19 +118,20 @@ var gameSceneInit = function(){
 		for (var obj in ARENAS[arena]){
 			// TODO SWITCH OFF OF ENTITIES
 			GAME.entities.push(new Entity(BASE_URL + 'Arenas/' + arena + '/' + ARENAS[arena][obj]));
+			setTimeout(function(){addEntity(GAME.entities[0])},100);
 		}
 	}
 	for (var obj in OBJECTS){
 		GAME.entities.push(new Entity(BASE_URL + 'Entities/Objects/' + obj + '/' + OBJECTS[obj]));
 	}
 	for (var enemy in ENEMIES){
-		for (var x = 0; x < 20; x++){
-			GAME.entities.push(new Entity(BASE_URL + 'Entities/Enemies/' + enemy + '/' + ENEMIES[enemy]));
-		}
+		GAME.entities.push(new Entity(BASE_URL + 'Entities/Enemies/' + enemy + '/' + ENEMIES[enemy]));
+		setTimeout(function(){addEntity(GAME.entities[1])},100);
 	}
 	
 	// load player
 	GAME.player = new Entity(BASE_URL + 'Entities/Objects/object1/object1.json', true);
+	setTimeout(function(){addEntity(GAME.player)}, 100);
 	GAME.entities.push(GAME.player);
 }
 

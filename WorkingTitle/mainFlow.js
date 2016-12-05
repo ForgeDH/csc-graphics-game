@@ -3,6 +3,8 @@ var GAME = {};
 var activeScene;
 var BASE_URL = "https://raw.githubusercontent.com/ForgeDH/csc-graphics-game/master/WorkingTitle/";
 
+var resources = {};
+
 GAME.allObjects = [];			// everything in the world
 GAME.entities = [];				// things that need processing every tick (player, enemies, projectiles, etc.)
 GAME.structures = [];			// things that are static (walls, floors, etc.)

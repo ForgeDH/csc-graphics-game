@@ -75,7 +75,6 @@ tickFunctions.boxTick = function(actions){
 	}
 	
 	// ROTATION	
-	// TODO: Cap up and down rotation
 	if(this.mesh.pitchObj !== undefined){
 		this.mesh.pitchObj.rotation.x -= INPUT.getMouseYChange()/100;
 		this.mesh.pitchObj.rotation.x = Math.max(Math.min(this.mesh.pitchObj.rotation.x ,Math.PI/2) ,-Math.PI/2);
@@ -85,6 +84,7 @@ tickFunctions.boxTick = function(actions){
 	// ACTIONS
 	while(actions.length > 0){
 		var action = actions.shift();
+		// attack
 		if(action.buttons == 1){
 			console.log("ATTACK");
 			for (var entity in GAME.entities){
