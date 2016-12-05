@@ -113,6 +113,8 @@ var gameSceneInit = function(){
 	GAME.world.gravity.set(0,-1,0);
 	GAME.world.broadphase = new CANNON.NaiveBroadphase();
 	
+	GAME.world.defaultContactMaterial.friction = 0; //no friction - prevents hopping behavior
+	
 	// add entities (all for now)
 	for (var arena in ARENAS){
 		for (var obj in ARENAS[arena]){

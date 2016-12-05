@@ -23,6 +23,7 @@ class Entity{
 		this.body = new CANNON.Body({mass: JSONobj.mass, shape: boxShape});
 		this.body.position.set(JSONobj.boxPos.x, JSONobj.boxPos.y, JSONobj.boxPos.z);
 		this.body.quaternion.setFromEuler(JSONobj.boxRot.x, JSONobj.boxRot.y, JSONobj.boxRot.z, "XYZ");
+		this.body.linearDamping = 0.3; //air resistance
 		
 		// load tick function
 		this.tick = tickFunctions[JSONobj.tickFunc];
