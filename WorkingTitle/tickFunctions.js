@@ -1,5 +1,6 @@
 var tickFunctions = {};
 
+/* HELPER FUNCTIONS */
 var killObject = function(deadObj){
 	if(deadObj.mesh.parent.killable){
 		var idx = GAME.entities.indexOf(deadObj);
@@ -13,7 +14,32 @@ var killObject = function(deadObj){
 	}
 }
 
+var coneHitbox = function(position, direction, angle, range, damage, knockbackAmount){
+	var dist;
+	var knockback = new CANNON.Vec3();
+	var entityDir = new CANNON.Vec3();;
+	var betweenAngle;
+	direction.normalize();
+	direction.scale(knockbackAmount, knockback);
+	
+	for (var entity in GAME.entities){
+		dist = position.distanceTo(GAME.entities[entity].body.position);
+		if(dist < range){
+			GAME.entities[entity].body.position.vsub(position, entityDir);
+			entityDir.normalize();
+			betweenAngle = Math.acos(entityDir.dot(direction));
+			if(betweenAngle < angle){
+				if(GAME.entities[entity].mesh.parent.killable){
+					GAME.entities[entity].currentHealth -= damage;
+					GAME.entities[entity].body.velocity.vadd(knockback, GAME.entities[entity].body.velocity);
+				}
+			}
+		}
+	}
+}
 
+
+/* TICK FUNCTIONS */
 tickFunctions.noTick = function(){
 };
 
@@ -87,11 +113,14 @@ tickFunctions.boxTick = function(actions){
 		// attack
 		if(action.buttons == 1){
 			console.log("ATTACK");
+			/*
 			for (var entity in GAME.entities){
 				if(GAME.entities[entity].mesh.parent.killable){
 					GAME.entities[entity].currentHealth -= 26;
 				}
 			}
+			*/
+			coneHitbox(this.body.position, forwardVec, Math.PI/4, 10, 26, 15);
 		}
 	}
 }
