@@ -75,8 +75,10 @@ tickFunctions.boxTick = function(actions){
 	}
 	
 	// ROTATION	
+	// TODO: Cap up and down rotation
 	if(this.mesh.pitchObj !== undefined){
 		this.mesh.pitchObj.rotation.x -= INPUT.getMouseYChange()/100;
+		this.mesh.pitchObj.rotation.x = Math.max(Math.min(this.mesh.pitchObj.rotation.x ,Math.PI/2) ,-Math.PI/2);
 		this.mesh.yawObj.rotation.y -= INPUT.getMouseXChange()/100;
 	}
 	
