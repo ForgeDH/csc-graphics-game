@@ -117,20 +117,24 @@ var gameSceneInit = function(){
 	for (var arena in ARENAS){
 		for (var obj in ARENAS[arena]){
 			// TODO SWITCH OFF OF ENTITIES
-			GAME.entities.push(new Entity(BASE_URL + 'Arenas/' + arena + '/' + ARENAS[arena][obj]));
+			GAME.entities.push(new Entity(ARENAS[arena][obj]));
 			setTimeout(function(){addEntity(GAME.entities[0])},100);
 		}
 	}
 	for (var obj in OBJECTS){
-		GAME.entities.push(new Entity(BASE_URL + 'Entities/Objects/' + obj + '/' + OBJECTS[obj]));
+		GAME.entities.push(new Entity(OBJECTS[obj]));
 	}
 	for (var enemy in ENEMIES){
-		GAME.entities.push(new Entity(BASE_URL + 'Entities/Enemies/' + enemy + '/' + ENEMIES[enemy]));
-		setTimeout(function(){addEntity(GAME.entities[1])},100);
+	  for(var i = 0; i < 20; i++) {
+	    var newEnemy = new Entity(ENEMIES[enemy]);
+		  GAME.entities.push(newEnemy);
+		  addEntity(newEnemy);
+		}
 	}
 	
 	// load player
-	GAME.player = new Entity(BASE_URL + 'Entities/Objects/object1/object1.json', true);
+	GAME.player = new Entity('object1.json', true);
+	Entity.initPlayer();
 	setTimeout(function(){addEntity(GAME.player)}, 100);
 	GAME.entities.push(GAME.player);
 }
