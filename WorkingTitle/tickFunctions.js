@@ -43,29 +43,28 @@ var coneHitbox = function(position, direction, angle, range, damage, knockbackAm
 tickFunctions.noTick = function(){
 };
 
+
 tickFunctions.enemyTick = function(){
-	var ms = 1;
+	var ms = 0.1;
 	
 	var currLoc = this.body.position;
-	if(currLoc.y < -400){
+	if(currLoc.y < -50){
 		killObject(this);
 	}
 	
 	var target = GAME.player.body.position.clone();
 	
-	var yVel = this.body.velocity.y;
-	
 	target.vsub(currLoc, target);
 	target.normalize();
 	target.scale(ms, target);
-	target.y = yVel;
+	target.y = 0;
 	
 	// get rotation angle
 	var angle = Math.atan2(target.z, target.x)*-1;
 	this.body.quaternion.setFromEuler(0, angle, 0, "XYZ");
 	this.mesh.rotation.y = angle;
 	
-	this.body.velocity = target;
+	this.body.velocity.vadd(target, this.body.velocity);
 	
 	if(this.currentHealth <= 0){
 		killObject(this);
@@ -101,8 +100,7 @@ tickFunctions.boxTick = function(actions){
 	}
 	
 	if(this.body.velocity.norm() > speedCap){
-		this.body.velocity.normalize();
-		this.body.velocity.scale(speedCap, this.body.velocity);
+		this.body.velocity.scale(0.9, this.body.velocity);
 	}
 	
 	// ROTATION	
