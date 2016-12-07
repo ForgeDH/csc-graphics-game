@@ -40,6 +40,9 @@ function main() {
 	for (var enemy in ENEMIES){
 		load(BASE_URL + 'Entities/Enemies/' + enemy + '/' + ENEMIES[enemy],ENEMIES[enemy]);
 	}
+	for (var weapon in WEAPONS){
+		load(BASE_URL + 'Weapons/' + weapon + '/' + WEAPONS[weapon],WEAPONS[weapon]);
+	}
 	load(BASE_URL + 'Entities/Objects/object1/object1.json', 'object1.json');//load player
 
 
