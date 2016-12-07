@@ -8,9 +8,13 @@ class Entity{
 			this.health = JSONobj.health;
 			this.currentHealth = JSONobj.health;
 		}
+		if(isPlayer){
+			this.health = 100;
+			this.currentHealth = 100;
+		}
+		this.name = JSONobj.name;
 		
 		// load model
-		
 		this.mesh = resources[name+"mesh"].parent.clone(undefined, true).children[0];
 		
 		if(this.health !== undefined){
@@ -50,5 +54,10 @@ class Entity{
 		GAME.player.mesh.pitchObj = pitchObj;
 		GAME.player.mesh.yawObj = yawObj;
 		GAME.player.mesh.add(yawObj);
+		
+		// add collision detector
+		GAME.player.body.addEventListener("collide", function(otherObj){
+			console.log(otherObj.name);
+		});
 	}
 }

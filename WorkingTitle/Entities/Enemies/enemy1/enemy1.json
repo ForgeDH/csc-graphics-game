@@ -1,4 +1,5 @@
 {
+	"name":"zombie",
 	"modelURL":"https://raw.githubusercontent.com/ForgeDH/csc-graphics-game/master/WorkingTitle/box.obj",
 	"textureURL":"https://rawgit.com/ForgeDH/csc-graphics-game/master/WorkingTitle/Entities/Enemies/enemy1/DH.jpg",
 	"mass":1,

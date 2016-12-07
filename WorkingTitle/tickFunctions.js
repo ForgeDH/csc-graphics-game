@@ -60,6 +60,11 @@ tickFunctions.enemyTick = function(){
 	target.scale(ms, target);
 	target.y = yVel;
 	
+	// get rotation angle
+	var angle = Math.atan2(target.z, target.x)*-1;
+	this.body.quaternion.setFromEuler(0, angle, 0, "XYZ");
+	this.mesh.rotation.y = angle;
+	
 	this.body.velocity = target;
 	
 	if(this.currentHealth <= 0){

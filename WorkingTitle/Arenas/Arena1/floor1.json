@@ -1,4 +1,5 @@
 {
+	"name":"floor",
 	"modelURL":"https://raw.githubusercontent.com/ForgeDH/csc-graphics-game/master/WorkingTitle/plate.obj",
 	"textureURL":"https://rawgit.com/ForgeDH/csc-graphics-game/master/WorkingTitle/Entities/Objects/object1/MELogo.jpg",
 	"mass":0,
