@@ -59,7 +59,7 @@ hitboxFunctions.coneHitbox = function(attacker){
 		GAME.weapons[weapon].currCD = GAME.weapons[weapon].cooldown;
 		for (var entity in GAME.entities){
 			dist = position.distanceTo(GAME.entities[entity].body.position);
-			if(dist < GAME.weapons[this.activeWeapon]range){
+			if(dist < GAME.weapons[this.activeWeapon].range){
 				GAME.entities[entity].body.position.vsub(position, entityDir);
 				entityDir.normalize();
 				betweenAngle = Math.acos(entityDir.dot(direction));
@@ -76,9 +76,9 @@ hitboxFunctions.coneHitbox = function(attacker){
 
 
 /* WEAPON COOLDOWN FUNCTIONS */
-weaponCDFunctions.weaponCDTick = function(weapon){
-	if(GAME.weapons[weapon].currCD > 0){
-		GAME.weapons[weapon].currCD -= 1;
+weaponCDFunctions.weaponCDTick = function(){
+	if(this.currCD > 0){
+		this.currCD -= 1;
 	}
 }
 
@@ -169,7 +169,7 @@ tickFunctions.boxTick = function(actions){
 		var action = actions.shift();
 		// attack
 		if(action.buttons == 1){
-			hitboxFunctions.coneHitbox(this);
+			GAME.weapons[this.activeWeapon].hit(this);
 		}
 	}
 	

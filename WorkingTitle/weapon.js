@@ -4,10 +4,11 @@ class Weapon{
 		var JSONobj = resources[name];
 		
 		// load model
-		this.mesh = resources[name+"mesh"].parent.clone(undefined, true).children[0];
+		//this.mesh = resources[name+"mesh"].parent.clone(undefined, true).children[0];
 		
 		// load tick function
-		this.tick = hitboxFunctions[JSONobj.hitFunc];
+		this.hit = hitboxFunctions[JSONobj.hitFunc];
+		this.tick = weaponCDFunctions[JSONobj.tickFunc]
 		
 		this.damage = JSONobj.damage;
 		this.knockback = JSONobj.knockback;

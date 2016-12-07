@@ -8,5 +8,7 @@
 	"range":10,
 	"angle":0.785398,
 	"cooldown":60,
-	"hitFunc":"coneHitbox"
+	
+	"hitFunc":"coneHitbox",
+	"tickFunc":"weaponCDTick"
 }

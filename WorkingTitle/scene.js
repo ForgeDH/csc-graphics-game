@@ -212,6 +212,9 @@ var gameSceneLoop = function(){
 		}
 		GAME.entities[idx].updateMeshToBody();
 	}
+	for (var idx in GAME.weapons){
+		GAME.weapons[idx].tick();
+	}
 	
 	GAME.world.step(0.1666);
 	GAME.renderer.render( GAME.scene, GAME.camera );
