@@ -1,4 +1,6 @@
 var tickFunctions = {};
+var hitboxFunctions = {};
+var weaponCDFunctions = {};
 
 /* HELPER FUNCTIONS */
 var killObject = function(deadObj){
@@ -14,10 +16,13 @@ var killObject = function(deadObj){
 	}
 }
 
-var coneHitbox = function(position, direction, angle, range, damage, knockbackAmount){
+
+/* HITBOX FUNCTIONS */
+/*
+hitboxFunctions.coneHitbox = function(position, direction, angle, range, damage, knockbackAmount){
 	var dist;
 	var knockback = new CANNON.Vec3();
-	var entityDir = new CANNON.Vec3();;
+	var entityDir = new CANNON.Vec3();
 	var betweenAngle;
 	direction.normalize();
 	direction.scale(knockbackAmount, knockback);
@@ -37,6 +42,46 @@ var coneHitbox = function(position, direction, angle, range, damage, knockbackAm
 		}
 	}
 }
+*/
+
+hitboxFunctions.coneHitbox = function(attacker){
+	var dist;
+	var knockback = new CANNON.Vec3();
+	var entityDir = new CANNON.Vec3();
+	var betweenAngle;
+	
+	var position = new CANNON.Vec3(attacker.body.position.x, attacker.body.position.y, attacker.body.position.z);
+	var direction = CANNON.Quaternion.copy(attacker.body.quaternion);
+	direction.normalize();
+	direction.scale(GAME.weapons[this.activeWeapon].knockback, knockback);
+	
+	if(GAME.weapons[weapon].currCD <= 0){
+		GAME.weapons[weapon].currCD = GAME.weapons[weapon].cooldown;
+		for (var entity in GAME.entities){
+			dist = position.distanceTo(GAME.entities[entity].body.position);
+			if(dist < GAME.weapons[this.activeWeapon]range){
+				GAME.entities[entity].body.position.vsub(position, entityDir);
+				entityDir.normalize();
+				betweenAngle = Math.acos(entityDir.dot(direction));
+				if(betweenAngle < GAME.weapons[this.activeWeapon].angle){
+					if(GAME.entities[entity].mesh.parent.killable){
+						GAME.entities[entity].currentHealth -= GAME.weapons[this.activeWeapon].damage;
+						GAME.entities[entity].body.velocity.vadd(knockback, GAME.entities[entity].body.velocity);
+					}
+				}
+			}
+		}
+	}
+}
+
+
+/* WEAPON COOLDOWN FUNCTIONS */
+weaponCDFunctions.weaponCDTick = function(weapon){
+	if(GAME.weapons[weapon].currCD > 0){
+		GAME.weapons[weapon].currCD -= 1;
+	}
+}
+
 
 
 /* TICK FUNCTIONS */
@@ -124,7 +169,7 @@ tickFunctions.boxTick = function(actions){
 		var action = actions.shift();
 		// attack
 		if(action.buttons == 1){
-			coneHitbox(this.body.position, forwardVec, Math.PI/4, 10, 26, 15);
+			hitboxFunctions.coneHitbox(this);
 		}
 	}
 	

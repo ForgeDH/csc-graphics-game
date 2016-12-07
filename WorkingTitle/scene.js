@@ -98,6 +98,7 @@ var gameSceneInit = function(){
   GAME.entities = [];
   GAME.structures = [];
 	GAME.enemies = [];
+	GAME.weapons = [];
 
 
   // create THREE scene, light and camera
@@ -136,6 +137,9 @@ var gameSceneInit = function(){
 		  GAME.entities.push(newEnemy);
 		  addEntity(newEnemy);
 		}
+	}
+	for (var weapon in WEAPONS){
+		GAME.weapons.push(new Weapon(WEAPONS[weapon]));
 	}
 	
 	// load player

@@ -1,0 +1,12 @@
+{
+	"name":"sword",
+	"modelURL":"https://raw.githubusercontent.com/ForgeDH/csc-graphics-game/master/WorkingTitle/box.obj",
+	"textureURL":"https://rawgit.com/ForgeDH/csc-graphics-game/master/WorkingTitle/Entities/Objects/object1/MELogo.jpg",
+
+	"damage":26,
+	"knockback":10,
+	"range":10,
+	"angle":0.785398,
+	"cooldown":60,
+	"hitFunc":"coneHitbox"
+}

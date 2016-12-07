@@ -21,6 +21,9 @@ var ARENAS = {"Arena1":Arena1};
 var OBJECTS = {};
 var ENEMIES = {"enemy1":"enemy1.json"};
 
+/* WEAPON FILE STRUCTURE */
+var WEAPONS = {"sword":"sword.json"};
+
 /* MAIN -- HERE is where execution begins after window load */
 function main() {
 
