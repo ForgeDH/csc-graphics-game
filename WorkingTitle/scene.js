@@ -148,6 +148,13 @@ var gameSceneInit = function(){
   ** SETUP FOR UI
   ** CODE MODIFIED FROM: http://www.evermade.fi/en/pure-three-js-hud/
   ************************************************************************/
+  
+  
+  //get Watson Face Image
+  this.watsons = [document.getElementById("watson25"),
+                  document.getElementById("watson50"),
+                  document.getElementById("watson75"),
+                  document.getElementById("watson100")];
 
 	// Ok, now we have the cube. Next we'll create the hud. For that we'll
   // need a separate scene which we'll render on top of our 3D scene. We'll
@@ -209,20 +216,54 @@ var gameSceneLoop = function(){
   // Update HUD graphics.
   this.hudBitmap.clearRect(0, 0, GAME_WINDOW_WIDTH, window.GAME_WINDOW_HEIGHT);
   
+  // Whole box
 	this.hudBitmap.strokeStyle = 'rgba(0,0,0,1.0)';     //Outline Black
 	this.hudBitmap.fillStyle = 'rgba(160,150,150,1.0)'; //Fill Grey
   this.hudBitmap.fillRect(0, 500, 1000, 150);         // whole thing
+  
+  //Weapon rectangles
   this.hudBitmap.strokeRect(254, 504, 139, 71);       // weapon rects
   this.hudBitmap.strokeRect(393, 504, 139, 71);
   this.hudBitmap.strokeRect(532, 504, 139, 71);
   this.hudBitmap.strokeRect(254, 575, 139, 71);
   this.hudBitmap.strokeRect(393, 575, 139, 71);
   this.hudBitmap.strokeRect(532, 575, 139, 71);
-  //                              //TODO: weapon numbers
+  
+  //Weapon Images
+  //TODO
+  
+  //Weapon numbers
+  this.hudBitmap.fillStyle = 'rgba(0,  0,  0,  1.0)';
+  this.hudBitmap.font = '16px serif';
+  this.hudBitmap.fillText('1', 256, 564);             //Weapon numbers
+  this.hudBitmap.fillText('2', 395, 564);
+  this.hudBitmap.fillText('3', 534, 564);
+  this.hudBitmap.fillText('4', 256, 635);
+  this.hudBitmap.fillText('5', 395, 635);
+  this.hudBitmap.fillText('6', 534, 635);
+  
+  //Weapon cooldowns
+	this.hudBitmap.fillStyle = 'rgba(250,250,0  ,1.0)'; //Fill Yellow
+  this.hudBitmap.fillRect(255, 570, 137, 4);       // weapon cooldowns [NYI]
+  this.hudBitmap.fillRect(394, 570, 137, 4);
+  this.hudBitmap.fillRect(533, 570, 137, 4);
+  this.hudBitmap.fillRect(255, 641, 137, 4);
+  this.hudBitmap.fillRect(394, 641, 137, 4);
+  this.hudBitmap.fillRect(533, 641, 137, 4);
+  
+  //Ammo Icons
+  //TODO
   //4 504:   Ammo Icon A 32 32    //Ammo icons
   //4 541:   Ammo Icon B 32 32
   //4 577:   Ammo Icon C 32 32
   //4 614:   Ammo Icon D 32 32
+  
+  //Ammo Counts [NYI]
+  this.hudBitmap.fillStyle = 'rgba(0,  0,  0,  1.0)';
+  this.hudBitmap.font = '16px serif';
+  
+  
+  //Health bar
   this.hudBitmap.fillStyle = 'rgba(0,  0,  0,  1.0)'; //Fill Black
   this.hudBitmap.fillRect(780, 560, 200, 40);
   this.hudBitmap.fillStyle = 'rgba(0,255,  0,  1.0)'; //Fill Green
@@ -243,7 +284,9 @@ var gameSceneLoop = function(){
   this.hudBitmap.closePath();                                     //Close path
   this.hudBitmap.fill();                                          //Fill
   
-  //680 505: Watson Image 100 140 //FACE
+  //FACE
+  this.hudBitmap.drawImage(this.watsons[Math.floor((GAME.player.currentHealth - 1)/25)], 680, 505); //680 505: Watson Image 100 140 
+
 	this.hudTexture.needsUpdate = true;
   // Render HUD on top of the scene.
   GAME.renderer.render(this.sceneHUD, this.cameraHUD);
