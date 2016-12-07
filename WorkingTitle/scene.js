@@ -32,9 +32,6 @@ var menuSceneInit = function(){
 
   // Get 2D context and draw something supercool.
   this.hudBitmap = this.hudCanvas.getContext('2d');
-	this.hudBitmap.font = "Bold 40px Arial";
-  this.hudBitmap.textAlign = 'center';
-  this.hudBitmap.fillStyle = "rgba(245,245,245,1.0)";
      
   // Create the camera and set the viewport to match the screen dimensions.
   this.cameraHUD = new THREE.OrthographicCamera(-window.innerWidth*0.9/2, window.innerWidth*0.9/2, window.innerHeight*0.9/2, -window.innerHeight*0.9/2, 0, 30 );
@@ -57,15 +54,15 @@ var menuSceneInit = function(){
   var planeGeometry = new THREE.PlaneGeometry( window.innerWidth*0.9, window.innerHeight*0.9 );
   var plane = new THREE.Mesh( planeGeometry, material );
   this.sceneHUD.add( plane );
-  
-  
-  console.log(this);
 }
 
 var menuSceneLoop = function(){
   // Update HUD graphics.
   this.hudBitmap.clearRect(0, 0, window.innerWidth*0.9, window.innerHeight*0.9);
   this.hudBitmap.drawImage(this.doomArt, 0, 0, window.innerWidth * 0.9, window.innerHeight * 0.9);
+  
+	this.hudBitmap.font = "Bold 40px Arial";
+  this.hudBitmap.textAlign = 'center';
   for(var i = 0; i < this.buttons.length; i++) {
     this.hudBitmap.fillStyle = "rgba(245,245,245,0.7)";
     this.hudBitmap.fillRect(this.buttons[i].x,this.buttons[i].y,this.buttons[i].w,this.buttons[i].h);
@@ -139,6 +136,47 @@ var gameSceneInit = function(){
 	Entity.initPlayer();
 	setTimeout(function(){addEntity(GAME.player)}, 100);
 	GAME.entities.push(GAME.player);
+	
+  /************************************************************************
+  ** SETUP FOR UI
+  ** CODE MODIFIED FROM: http://www.evermade.fi/en/pure-three-js-hud/
+  ************************************************************************/
+
+	// Ok, now we have the cube. Next we'll create the hud. For that we'll
+  // need a separate scene which we'll render on top of our 3D scene. We'll
+  // use a dynamic texture to render the HUD.
+  
+  // We will use 2D canvas element to render our HUD.
+	this.hudCanvas = document.createElement('canvas');
+  
+  // Again, set dimensions to fit the screen.
+  this.hudCanvas.width = window.innerWidth * 0.9;
+  this.hudCanvas.height = window.innerHeight * 0.9;
+
+  // Get 2D context and draw something supercool.
+  this.hudBitmap = this.hudCanvas.getContext('2d');
+     
+  // Create the camera and set the viewport to match the screen dimensions.
+  this.cameraHUD = new THREE.OrthographicCamera(-window.innerWidth*0.9/2, window.innerWidth*0.9/2, window.innerHeight*0.9/2, -window.innerHeight*0.9/2, 0, 30 );
+
+  // Create also a custom scene for HUD.
+  this.sceneHUD = new THREE.Scene();
+ 
+	// Create texture from rendered graphics.
+  this.hudTexture = new THREE.Texture(this.hudCanvas);
+  this.hudTexture.generateMipmaps = false;
+  this.hudTexture.minFilter = THREE.LinearFilter;
+  this.hudTexture.magFilter = THREE.LinearFilter;
+  this.hudTexture.needsUpdate = true;
+  
+  // Create HUD material.
+  var material = new THREE.MeshBasicMaterial( {map: this.hudTexture} );
+  material.transparent = true;
+
+  // Create plane to render the HUD. This plane fill the whole screen.
+  var planeGeometry = new THREE.PlaneGeometry( window.innerWidth*0.9, window.innerHeight*0.9 );
+  var plane = new THREE.Mesh( planeGeometry, material );
+  this.sceneHUD.add( plane );
 }
 
 var gameSceneLoop = function(){
@@ -159,4 +197,19 @@ var gameSceneLoop = function(){
 	
 	GAME.world.step(0.1666);
 	GAME.renderer.render( GAME.scene, GAME.camera );
+	
+	
+  // Update HUD graphics.
+  this.hudBitmap.clearRect(0, 0, window.innerWidth*0.9, window.innerHeight*0.9);
+  
+	this.hudBitmap.font = "Bold 40px Arial";
+  this.hudBitmap.textAlign = 'center';
+  for(var i = 0; i < 6; i++) {
+    this.hudBitmap.fillStyle = "rgba(245,245,245,0.7)";
+    this.hudBitmap.fillStyle = "rgba(1,1,1,1.0)";
+    this.hudBitmap.fillText("DELEELELELE", 300, 100+i*50);
+  }
+	this.hudTexture.needsUpdate = true;
+  // Render HUD on top of the scene.
+  GAME.renderer.render(this.sceneHUD, this.cameraHUD);
 }

@@ -123,4 +123,8 @@ tickFunctions.boxTick = function(actions){
 			coneHitbox(this.body.position, forwardVec, Math.PI/4, 10, 26, 15);
 		}
 	}
+	
+	//FALLING INTO THE VOID
+	if(this.mesh.position.y < -50)
+	  activeScene = new Scene(menuSceneInit, menuSceneLoop);
 }
