@@ -1,4 +1,6 @@
 /* GLOBAL CONSTANTS AND VARIABLES */
+var GAME_WINDOW_HEIGHT = 600;
+var GAME_WINDOW_WIDTH = 1000;
 var GAME = {};
 var activeScene;
 var BASE_URL = "https://raw.githubusercontent.com/ForgeDH/csc-graphics-game/master/WorkingTitle/";
@@ -42,7 +44,7 @@ function main() {
 	// create THREE renderer and put it in the webpage
 	GAME.renderer = new THREE.WebGLRenderer();
   GAME.renderer.autoClear = false;
-	GAME.renderer.setSize( window.innerWidth * 0.9, window.innerHeight * 0.9 );
+	GAME.renderer.setSize( GAME_WINDOW_WIDTH, GAME_WINDOW_HEIGHT );
 	document.body.appendChild( GAME.renderer.domElement );
 	
 	activeScene = new Scene(menuSceneInit, menuSceneLoop);

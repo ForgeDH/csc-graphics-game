@@ -27,14 +27,14 @@ var menuSceneInit = function(){
 	this.hudCanvas = document.createElement('canvas');
   
   // Again, set dimensions to fit the screen.
-  this.hudCanvas.width = window.innerWidth * 0.9;
-  this.hudCanvas.height = window.innerHeight * 0.9;
+  this.hudCanvas.width = GAME_WINDOW_WIDTH;
+  this.hudCanvas.height = GAME_WINDOW_HEIGHT;
 
   // Get 2D context and draw something supercool.
   this.hudBitmap = this.hudCanvas.getContext('2d');
      
   // Create the camera and set the viewport to match the screen dimensions.
-  this.cameraHUD = new THREE.OrthographicCamera(-window.innerWidth*0.9/2, window.innerWidth*0.9/2, window.innerHeight*0.9/2, -window.innerHeight*0.9/2, 0, 30 );
+  this.cameraHUD = new THREE.OrthographicCamera(-GAME_WINDOW_WIDTH/2, GAME_WINDOW_WIDTH/2, GAME_WINDOW_HEIGHT/2, -GAME_WINDOW_HEIGHT/2, 0, 30 );
 
   // Create also a custom scene for HUD.
   this.sceneHUD = new THREE.Scene();
@@ -51,15 +51,15 @@ var menuSceneInit = function(){
   material.transparent = true;
 
   // Create plane to render the HUD. This plane fill the whole screen.
-  var planeGeometry = new THREE.PlaneGeometry( window.innerWidth*0.9, window.innerHeight*0.9 );
+  var planeGeometry = new THREE.PlaneGeometry( GAME_WINDOW_WIDTH, GAME_WINDOW_HEIGHT );
   var plane = new THREE.Mesh( planeGeometry, material );
   this.sceneHUD.add( plane );
 }
 
 var menuSceneLoop = function(){
   // Update HUD graphics.
-  this.hudBitmap.clearRect(0, 0, window.innerWidth*0.9, window.innerHeight*0.9);
-  this.hudBitmap.drawImage(this.doomArt, 0, 0, window.innerWidth * 0.9, window.innerHeight * 0.9);
+  this.hudBitmap.clearRect(0, 0, GAME_WINDOW_WIDTH, GAME_WINDOW_HEIGHT);
+  this.hudBitmap.drawImage(this.doomArt, 0, 0, GAME_WINDOW_WIDTH, GAME_WINDOW_HEIGHT);
   
 	this.hudBitmap.font = "Bold 40px Arial";
   this.hudBitmap.textAlign = 'center';
@@ -157,14 +157,14 @@ var gameSceneInit = function(){
 	this.hudCanvas = document.createElement('canvas');
   
   // Again, set dimensions to fit the screen.
-  this.hudCanvas.width = window.innerWidth * 0.9;
-  this.hudCanvas.height = window.innerHeight * 0.9;
+  this.hudCanvas.width = GAME_WINDOW_WIDTH;
+  this.hudCanvas.height = GAME_WINDOW_HEIGHT;
 
   // Get 2D context and draw something supercool.
   this.hudBitmap = this.hudCanvas.getContext('2d');
      
   // Create the camera and set the viewport to match the screen dimensions.
-  this.cameraHUD = new THREE.OrthographicCamera(-window.innerWidth*0.9/2, window.innerWidth*0.9/2, window.innerHeight*0.9/2, -window.innerHeight*0.9/2, 0, 30 );
+  this.cameraHUD = new THREE.OrthographicCamera(-GAME_WINDOW_WIDTH/2, GAME_WINDOW_WIDTH/2, GAME_WINDOW_HEIGHT/2, -GAME_WINDOW_HEIGHT/2, 0, 30 );
 
   // Create also a custom scene for HUD.
   this.sceneHUD = new THREE.Scene();
@@ -181,7 +181,7 @@ var gameSceneInit = function(){
   material.transparent = true;
 
   // Create plane to render the HUD. This plane fill the whole screen.
-  var planeGeometry = new THREE.PlaneGeometry( window.innerWidth*0.9, window.innerHeight*0.9 );
+  var planeGeometry = new THREE.PlaneGeometry( GAME_WINDOW_WIDTH, GAME_WINDOW_HEIGHT );
   var plane = new THREE.Mesh( planeGeometry, material );
   this.sceneHUD.add( plane );
 }
@@ -207,15 +207,32 @@ var gameSceneLoop = function(){
 	
 	
   // Update HUD graphics.
-  this.hudBitmap.clearRect(0, 0, window.innerWidth*0.9, window.innerHeight*0.9);
+  this.hudBitmap.clearRect(0, 0, GAME_WINDOW_WIDTH, window.GAME_WINDOW_HEIGHT);
   
-	this.hudBitmap.font = "Bold 40px Arial";
-  this.hudBitmap.textAlign = 'center';
-  for(var i = 0; i < 6; i++) {
-    this.hudBitmap.fillStyle = "rgba(245,245,245,0.7)";
-    this.hudBitmap.fillStyle = "rgba(1,1,1,1.0)";
-    this.hudBitmap.fillText("DELEELELELE", 300, 100+i*50);
-  }
+	//Outline Black
+  //Fill Grey
+  //0 500: Rect 1000 150          // whole thing
+  //254 504: Rect 139 71          // weapon rect
+  //393 504: Rect 139 71
+  //532 504: Rect 139 71
+  //254 575: Rect 139 71
+  //393 575: Rect 139 71
+  //532 575: Rect 139 71
+  //                              //TODO: weapon numbers
+  //4 504:   Ammo Icon A 32 32    //Ammo icons
+  //4 541:   Ammo Icon B 32 32
+  //4 577:   Ammo Icon C 32 32
+  //4 614:   Ammo Icon D 32 32
+  //Fill Black
+  //780 560: Rect 200 40
+  //Fill Green
+  //Begin Path
+  //Move To 780 560
+  //Move To MAX(980, 800+200*Health%) 560
+  //Move To MIN(780, 760+200*Health%) 600
+  //Close Path
+  //Fill
+  //680 505: Watson Image 100 140 //FACE
 	this.hudTexture.needsUpdate = true;
   // Render HUD on top of the scene.
   GAME.renderer.render(this.sceneHUD, this.cameraHUD);
