@@ -34,12 +34,31 @@ class Entity{
 					var knockbackVec = new CANNON.Vec3(-Math.sin(facingAngle), Math.PI/4, -Math.cos(facingAngle));
 					knockbackVec.normalize();
 					GAME.player.body.velocity.vadd(knockbackVec.scale(20, knockbackVec), GAME.player.body.velocity);
+					GAME.player.canJump = false;
 				}
 			});
 		}
 		if(isPlayer){
 			this.health = 100;
 			this.currentHealth = 100;
+			this.jumpFrames = 0;
+			
+			/* event code adapted from 
+			https://schteppe.github.io/cannon.js/examples/js/PointerLockControls.js
+			*/
+			this.body.addEventListener("collide",function(otherObj){
+				var contactNormal = new CANNON.Vec3();
+				var contact = otherObj.contact;
+				if(contact.bi.id == GAME.player.body.id){
+					contact.ni.negate(contactNormal);
+				} else {
+					contactNormal.copy(contact.ni);
+				}
+				
+				if(contactNormal.dot(new CANNON.Vec3(0,1,0)) > 0.5){
+					GAME.player.canJump = true;
+				}
+			});
 		}
 		this.name = JSONobj.name;
 		// add new enemy to enemies list
@@ -90,5 +109,6 @@ class Entity{
 		GAME.player.mesh.yawObj = yawObj;
 		GAME.player.mesh.add(yawObj);
 		GAME.player.invincible = 5;
+		GAME.player.canJump = false;
 	}
 }

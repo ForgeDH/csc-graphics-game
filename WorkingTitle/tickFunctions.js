@@ -98,6 +98,15 @@ tickFunctions.boxTick = function(actions){
 	if(INPUT.isKeyDown("d")){
 		this.body.velocity.vadd(rightVec.scale(ms, rightVec), this.body.velocity);
 	}
+	if(INPUT.isKeyDown(" ")){
+		if(this.canJump || this.jumpFrames > 0){
+			this.body.velocity.vadd(new CANNON.Vec3(0,2,0), this.body.velocity);
+			if(this.canJump){
+				this.jumpFrames = 5;
+			}
+			this.canJump = false;
+		}
+	}
 	
 	if(this.body.velocity.norm() > speedCap){
 		this.body.velocity.scale(0.9, this.body.velocity);
@@ -119,9 +128,12 @@ tickFunctions.boxTick = function(actions){
 		}
 	}
 	
-	// I-frames
-	if(GAME.player.invincible > 0){
-		GAME.player.invincible -= 1;
+	// I-frames and J-frames
+	if(this.invincible > 0){
+		this.invincible -= 1;
+	}
+	if(this.jumpFrames > 0){
+		this.jumpFrames -= 1;
 	}
 	
 	//FALLING INTO THE VOID
