@@ -93,7 +93,13 @@ var addEntity = function(entity){
 }
 
 var gameSceneInit = function(){
-		// create THREE scene, light and camera
+  //clear the previous setting
+  GAME.allObjects = [];
+  GAME.entities = [];
+  GAME.structures = [];
+
+
+  // create THREE scene, light and camera
 	GAME.scene = new THREE.Scene();
 	var light = new THREE.PointLight( 0xffffff, 1, 10000 );
 	light.position.set( 50, 50, 50 );
