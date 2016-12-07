@@ -134,7 +134,7 @@ var gameSceneInit = function(){
 	  for(var i = 0; i < 20; i++) {
 	    var newEnemy = new Entity(ENEMIES[enemy]);
 		  GAME.entities.push(newEnemy);
-		  addEntity(newEnemy);
+		  //addEntity(newEnemy);
 		}
 	}
 	
@@ -209,29 +209,40 @@ var gameSceneLoop = function(){
   // Update HUD graphics.
   this.hudBitmap.clearRect(0, 0, GAME_WINDOW_WIDTH, window.GAME_WINDOW_HEIGHT);
   
-	//Outline Black
-  //Fill Grey
-  //0 500: Rect 1000 150          // whole thing
-  //254 504: Rect 139 71          // weapon rect
-  //393 504: Rect 139 71
-  //532 504: Rect 139 71
-  //254 575: Rect 139 71
-  //393 575: Rect 139 71
-  //532 575: Rect 139 71
+	this.hudBitmap.strokeStyle = 'rgba(0,0,0,1.0)';     //Outline Black
+	this.hudBitmap.fillStyle = 'rgba(160,150,150,1.0)'; //Fill Grey
+  this.hudBitmap.fillRect(0, 500, 1000, 150);         // whole thing
+  this.hudBitmap.strokeRect(254, 504, 139, 71);       // weapon rects
+  this.hudBitmap.strokeRect(393, 504, 139, 71);
+  this.hudBitmap.strokeRect(532, 504, 139, 71);
+  this.hudBitmap.strokeRect(254, 575, 139, 71);
+  this.hudBitmap.strokeRect(393, 575, 139, 71);
+  this.hudBitmap.strokeRect(532, 575, 139, 71);
   //                              //TODO: weapon numbers
   //4 504:   Ammo Icon A 32 32    //Ammo icons
   //4 541:   Ammo Icon B 32 32
   //4 577:   Ammo Icon C 32 32
   //4 614:   Ammo Icon D 32 32
-  //Fill Black
-  //780 560: Rect 200 40
-  //Fill Green
-  //Begin Path
-  //Move To 780 560
-  //Move To MAX(980, 800+200*Health%) 560
-  //Move To MIN(780, 760+200*Health%) 600
-  //Close Path
-  //Fill
+  this.hudBitmap.fillStyle = 'rgba(0,  0,  0,  1.0)'; //Fill Black
+  this.hudBitmap.fillRect(780, 560, 200, 40);
+  this.hudBitmap.fillStyle = 'rgba(0,255,  0,  1.0)'; //Fill Green
+  
+  var healthBar = 740 + GAME.player.currentHealth/100 * 240;
+  
+  this.hudBitmap.beginPath();                                     //Begin Path
+  this.hudBitmap.moveTo(780, 560);                                //Move To 780 560
+  this.hudBitmap.lineTo(Math.min(980, healthBar + 40),560);       //Move To MAX(980, 800+200*Health%) 560
+  if(GAME.player.currentHealth > 83) {
+    this.hudBitmap.lineTo(980, 560 + (40 * (GAME.player.currentHealth-83) / 17));
+  }
+  if(GAME.player.currentHealth < 17) {
+    this.hudBitmap.lineTo(780, 560 + (40 * GAME.player.currentHealth / 17));
+  }
+  this.hudBitmap.lineTo(Math.max(780, healthBar),600);      //Move To MIN(780, 760+200*Health%) 600
+  this.hudBitmap.lineTo(780, 600);                                //Move To 780 560
+  this.hudBitmap.closePath();                                     //Close path
+  this.hudBitmap.fill();                                          //Fill
+  
   //680 505: Watson Image 100 140 //FACE
 	this.hudTexture.needsUpdate = true;
   // Render HUD on top of the scene.
