@@ -97,6 +97,7 @@ var gameSceneInit = function(){
   GAME.allObjects = [];
   GAME.entities = [];
   GAME.structures = [];
+	GAME.enemies = [];
 
 
   // create THREE scene, light and camera

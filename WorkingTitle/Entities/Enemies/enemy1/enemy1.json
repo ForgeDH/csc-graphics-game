@@ -8,5 +8,7 @@
 	"boxRot":{"x":0, "y":0, "z":0},
 	
 	"health":100,
+	"damage":5,
+	
 	"tickFunc":"enemyTick"
 }

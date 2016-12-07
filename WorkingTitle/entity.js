@@ -13,6 +13,22 @@ class Entity{
 			this.currentHealth = 100;
 		}
 		this.name = JSONobj.name;
+		// add new enemy to enemies list
+		var newName = true;
+		if(this.name !== "watson" && this.name !== "arena"){
+			for (var x = 0; x < GAME.enemies.length; x++){
+				if(GAME.enemies[x].name == name){
+					newName = false;
+					break;
+				}
+			}
+			if(newName){
+				var newEnemy = {};
+				newEnemy.name = this.name;
+				newEnemy.damage = JSONobj.damage;
+			}
+		}
+		console.log(this.name);
 		
 		// load model
 		this.mesh = resources[name+"mesh"].parent.clone(undefined, true).children[0];
@@ -28,6 +44,7 @@ class Entity{
 		this.body.position.set(JSONobj.boxPos.x, JSONobj.boxPos.y, JSONobj.boxPos.z);
 		this.body.quaternion.setFromEuler(JSONobj.boxRot.x, JSONobj.boxRot.y, JSONobj.boxRot.z, "XYZ");
 		this.body.linearDamping = 0.3; //air resistance
+		this.body.entity = this;
 		
 		// load tick function
 		this.tick = tickFunctions[JSONobj.tickFunc];
@@ -57,7 +74,14 @@ class Entity{
 		
 		// add collision detector
 		GAME.player.body.addEventListener("collide", function(otherObj){
-			console.log(otherObj.name);
+			console.log(otherObj.body.entity.name);
+			for(var enemy in GAME.enemies){
+				if(otherObj.body.entity.name == GAME.enemies[enemy].name){
+					console.log("Hit by: " + GAME.enemies[enemy].name);
+					GAME.player.currentHealth -= GAME.enemies[enemy].damage;
+					console.log(player.currentHealth);
+				}
+			}
 		});
 	}
 }
