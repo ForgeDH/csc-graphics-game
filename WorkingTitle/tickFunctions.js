@@ -117,19 +117,16 @@ tickFunctions.boxTick = function(actions){
 		var action = actions.shift();
 		// attack
 		if(action.buttons == 1){
-			console.log("ATTACK");
-			/*
-			for (var entity in GAME.entities){
-				if(GAME.entities[entity].mesh.parent.killable){
-					GAME.entities[entity].currentHealth -= 26;
-				}
-			}
-			*/
 			coneHitbox(this.body.position, forwardVec, Math.PI/4, 10, 26, 15);
 		}
 	}
 	
+	// I-frames
+	if(GAME.player.invincible > 0){
+		GAME.player.invincible -= 1;
+	}
+	
 	//FALLING INTO THE VOID
-	if(this.mesh.position.y < -50)
+	if(this.mesh.position.y < -50 || this.currentHealth <= 0)
 	  activeScene = new Scene(menuSceneInit, menuSceneLoop);
 }

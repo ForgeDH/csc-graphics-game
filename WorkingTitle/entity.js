@@ -3,10 +3,39 @@ class Entity{
 		
 		var JSONobj = resources[name];
 		
+		// load model
+		this.mesh = resources[name+"mesh"].parent.clone(undefined, true).children[0];
+	
+		// make physics
+		var boxShape = new CANNON.Box(new CANNON.Vec3(JSONobj.boxSize.x,JSONobj.boxSize.y,JSONobj.boxSize.z));
+		this.body = new CANNON.Body({mass: JSONobj.mass, shape: boxShape});
+		this.body.position.set(JSONobj.boxPos.x, JSONobj.boxPos.y, JSONobj.boxPos.z);
+		this.body.quaternion.setFromEuler(JSONobj.boxRot.x, JSONobj.boxRot.y, JSONobj.boxRot.z, "XYZ");
+		this.body.linearDamping = 0.3; //air resistance
+		this.body.entity = this;
+		
+		// load tick function
+		this.tick = tickFunctions[JSONobj.tickFunc];
+		
 		// get miscellaneous
 		if(JSONobj.health !== undefined){
 			this.health = JSONobj.health;
 			this.currentHealth = JSONobj.health;
+			this.damage = JSONobj.damage;
+			// add collision detector
+			this.body.addEventListener("collide", function(otherObj){
+				if(otherObj.body.entity.name == "watson"){
+					if(GAME.player.invincible == 0){
+						GAME.player.currentHealth -= this.entity.damage;
+						console.log(GAME.player.currentHealth);
+						GAME.player.invincible = 5;
+					}
+					var facingAngle = this.entity.mesh.rotation.y - Math.PI/2;
+					var knockbackVec = new CANNON.Vec3(-Math.sin(facingAngle), Math.PI/4, -Math.cos(facingAngle));
+					knockbackVec.normalize();
+					GAME.player.body.velocity.vadd(knockbackVec.scale(20, knockbackVec), GAME.player.body.velocity);
+				}
+			});
 		}
 		if(isPlayer){
 			this.health = 100;
@@ -26,28 +55,17 @@ class Entity{
 				var newEnemy = {};
 				newEnemy.name = this.name;
 				newEnemy.damage = JSONobj.damage;
+				GAME.enemies.push(newEnemy);
 			}
 		}
-		console.log(this.name);
-		
-		// load model
-		this.mesh = resources[name+"mesh"].parent.clone(undefined, true).children[0];
 		
 		if(this.health !== undefined){
 		    console.log(this);
+				// for some reason I needed a boolean here for it to despawn
 				this.mesh.parent.killable = true;
 		}
-	
-		// make physics
-		var boxShape = new CANNON.Box(new CANNON.Vec3(JSONobj.boxSize.x,JSONobj.boxSize.y,JSONobj.boxSize.z));
-		this.body = new CANNON.Body({mass: JSONobj.mass, shape: boxShape});
-		this.body.position.set(JSONobj.boxPos.x, JSONobj.boxPos.y, JSONobj.boxPos.z);
-		this.body.quaternion.setFromEuler(JSONobj.boxRot.x, JSONobj.boxRot.y, JSONobj.boxRot.z, "XYZ");
-		this.body.linearDamping = 0.3; //air resistance
-		this.body.entity = this;
 		
-		// load tick function
-		this.tick = tickFunctions[JSONobj.tickFunc];
+		console.log(this.name);
 	}
 	
 	updateMeshToBody(){
@@ -71,17 +89,6 @@ class Entity{
 		GAME.player.mesh.pitchObj = pitchObj;
 		GAME.player.mesh.yawObj = yawObj;
 		GAME.player.mesh.add(yawObj);
-		
-		// add collision detector
-		GAME.player.body.addEventListener("collide", function(otherObj){
-			console.log(otherObj.body.entity.name);
-			for(var enemy in GAME.enemies){
-				if(otherObj.body.entity.name == GAME.enemies[enemy].name){
-					console.log("Hit by: " + GAME.enemies[enemy].name);
-					GAME.player.currentHealth -= GAME.enemies[enemy].damage;
-					console.log(player.currentHealth);
-				}
-			}
-		});
+		GAME.player.invincible = 5;
 	}
 }

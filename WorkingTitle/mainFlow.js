@@ -9,7 +9,7 @@ GAME.allObjects = [];			// everything in the world
 GAME.entities = [];				// things that need processing every tick (player, enemies, projectiles, etc.)
 GAME.structures = [];			// things that are static (walls, floors, etc.)
 
-GAME.player;
+GAME.player = {};
 
 /* ARENA FILE STRUCTURE */
 var Arena1 = ["floor1.json"];
