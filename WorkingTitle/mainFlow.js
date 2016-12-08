@@ -122,37 +122,40 @@ function load(JSONurl, name) {
 	}
 	
 	var loader = new THREE.OBJLoader();
+	var scope = this, animation;
 	if(JSONobj.modelURL.endsWith(".js"))
 	  loader = new THREE.JSONLoader();
-	loader.load(JSONobj.modelURL, function (object) {
-    if(JSONobj.modelURL.endsWith(".js")) {
+	loader.load(JSONobj.modelURL, function (object, materials) {
+	  console.log(object);
+	  console.log(materials);
+/*    if(JSONobj.modelURL.endsWith(".js")) {
     	var originalMaterial = materials[ 0 ];
       originalMaterial.skinning = true;
-      THREE.SkinnedMesh.call( scope, geometry, originalMaterial );
-      this.animation = new THREE.Animation(
-                    mesh,
+      var smesh = new THREE.SkinnedMesh( object, originalMaterial );
+      animation = THREE.Animation(
+                    smesh,
                     object.animation);
-      this.animation.play();
-    }
+      animation.play();
+    }*/
 
 		object.traverse(function (child) {
-						if (child instanceof THREE.Mesh) {
-							if(resources[name+"texture"]){
-								child.material.map = resources[name+"texture"];
-							} else {
-								child.material = new THREE.MeshPhongMaterial({color: 0xdddddd, specular: 0xdddddd, shininess: 30, shading: THREE.FlatShading});;
-							}
-							resources[name+"mesh"] = child;
-							if(JSONobj.scale) {
-                resources[name+"mesh"].geometry.scale(JSONobj.scale, JSONobj.scale, JSONobj.scale);
-              }
-              if(JSONobj.rotation) {
-                resources[name+"mesh"].geometry.rotateX(JSONobj.rotation[0]);
-                resources[name+"mesh"].geometry.rotateY(JSONobj.rotation[1]);
-                resources[name+"mesh"].geometry.rotateZ(JSONobj.rotation[2]);
-              }
-						}
-				}.bind(this));
-	}.bind(this));
+		  if (child instanceof THREE.Mesh) {
+			  if(resources[name+"texture"]){
+				  child.material.map = resources[name+"texture"];
+			  } else {
+				  child.material = new THREE.MeshPhongMaterial({color: 0xdddddd, specular: 0xdddddd, shininess: 30, shading: THREE.FlatShading});;
+			  }
+			  resources[name+"mesh"] = child;
+			  if(JSONobj.scale) {
+          resources[name+"mesh"].geometry.scale(JSONobj.scale, JSONobj.scale, JSONobj.scale);
+        }
+        if(JSONobj.rotation) {
+          resources[name+"mesh"].geometry.rotateX(JSONobj.rotation[0]);
+          resources[name+"mesh"].geometry.rotateY(JSONobj.rotation[1]);
+          resources[name+"mesh"].geometry.rotateZ(JSONobj.rotation[2]);
+        }
+		  }
+	  });
+	});
 	
 }
