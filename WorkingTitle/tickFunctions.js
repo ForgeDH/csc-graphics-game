@@ -57,22 +57,68 @@ hitboxFunctions.hitscanHitbox = function(attacker){
 		console.log("FIRE");
 		var raycaster = new THREE.Raycaster();
 		
-		var dist;
 		var knockback = new CANNON.Vec3();
-		var entityDir = new CANNON.Vec3();
-		var betweenAngle;
-
-		var position = new CANNON.Vec3(attacker.body.position.x, attacker.body.position.y, attacker.body.position.z);
 		
 		var facingAngle = GAME.player.mesh.yawObj.rotation.y;
 		var direction = new CANNON.Vec3(-Math.sin(facingAngle), 0, -Math.cos(facingAngle));
+		direction.y = GAME.player.mesh.pitchObj.rotation.x;
 		direction.normalize();
 		direction.scale(GAME.weapons[weapon].knockback, knockback);
 		
-		raycaster.set(position, direction);
-		var intersects = raycaster.intersectObject(scene.children);
+		var offset = new THREE.Vector3();
+		offset.copy(GAME.camera.position);
+		
+		console.log(direction.x*180/Math.PI);
+		console.log(direction.y*180/Math.PI);
+		console.log(direction.z*180/Math.PI);
+		
+		//raycaster.set(GAME.player.body.position, direction);
+		raycaster.set(offset.add(GAME.player.mesh.position), direction);
+		var intersect;
+		var intersects = [];
+		var hitObj;
+		var hitDist = Infinity;
+		var meshes = [];
+		
+		
+		// check all entities for hit
+		for(var entity in GAME.entities){
+			intersect = raycaster.intersectObject(GAME.entities[entity].mesh);
+			if(intersect.length > 0){
+				intersects.push(intersect[0]);
+			}
+		}
+		/*
+		for(var entity in GAME.entities){
+			meshes.push(GAME.entities.mesh);
+		}
+		intersects = raycaster.intersectObject(GAME.scene.children, true);
+		*/
 		for (var obj = 0; obj < intersects.length; obj++){
-			console.log("HIT");
+			if(intersects[obj].distance < hitDist){
+				hitObj = intersects[obj].object.entity;
+				console.log(hitObj);
+				hitDist = intersects[obj].distance;
+			}
+		}
+		
+		// HIT
+		if(hitDist < Infinity){
+			var isEnemy = false;
+			for(var idx = 0; idx < GAME.enemies.length; idx++){
+				if(GAME.enemies[idx].name == hitObj.name){
+					isEnemy = true;
+					break;
+				}
+			}
+			if(isEnemy){
+				console.log("MASSIVE DAMAGE");
+				console.log(hitObj);
+				console.log(hitObj.currentHealth);
+				hitObj.currentHealth -= GAME.weapons[weapon].damage*100;
+				console.log(hitObj.currentHealth);
+				hitObj.body.velocity.vadd(knockback, hitObj.body.velocity);
+			}
 		}
 		GAME.weapons[weapon].currCD = GAME.weapons[weapon].cooldown;
 	}
