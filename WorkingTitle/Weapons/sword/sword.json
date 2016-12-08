@@ -13,5 +13,6 @@
 	"cooldown":60,
 	
 	"hitFunc":"coneHitbox",
-	"tickFunc":"weaponCDTick"
+	"tickFunc":"weaponCDTick",
+	"animationFunc":"swingAnimateFunc"
 }

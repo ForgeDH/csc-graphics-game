@@ -17,14 +17,16 @@ class Weapon{
 		this.rotOffset.y = JSONobj.rotOffset.y;
 		this.rotOffset.z = JSONobj.rotOffset.z;
 		
-		// load tick function
+		// load tick functions
 		this.hit = hitboxFunctions[JSONobj.hitFunc];
-		this.tick = weaponCDFunctions[JSONobj.tickFunc]
+		this.tick = weaponCDFunctions[JSONobj.tickFunc];
+		this.animate = weaponAnimationFunctions[JSONobj.animationFunc];
 		
 		this.damage = JSONobj.damage;
 		this.knockback = JSONobj.knockback;
 		this.cooldown = JSONobj.cooldown;
 		this.currCD = 0;
+		this.animationFrames = 0;
 		
 		if(JSONobj.range !== undefined)
 			this.range = JSONobj.range;

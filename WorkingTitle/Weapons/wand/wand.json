@@ -11,5 +11,6 @@
 	"cooldown":1,
 	
 	"hitFunc":"hitscanHitbox",
-	"tickFunc":"weaponCDTick"
+	"tickFunc":"weaponCDTick",
+	"animationFunc":"boopAnimateFunc"
 }
