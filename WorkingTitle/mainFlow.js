@@ -62,7 +62,7 @@ function main() {
 		
 	  var delta = clock.getDelta();
     var theta = clock.getElapsedTime();
-		if( mixer ) mixer.update( delta );
+		for(e in GAME.entities) if( GAME.entities[e].mixer ) GAME.entities[e].mixer.update( delta );
 		
 		activeScene.runningLoop();
 	}

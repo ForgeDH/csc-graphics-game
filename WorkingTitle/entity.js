@@ -12,6 +12,7 @@ class Entity{
 		}
     if(this.mesh.geometry.animations) {
 		  mixer = new THREE.AnimationMixer(this.mesh);
+		  this.mixer = mixer;
 		  var tmixer = mixer.clipAction( this.mesh.geometry.animations[ 0 ] );
 		  tmixer.play();
 		}
