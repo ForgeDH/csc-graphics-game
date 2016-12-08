@@ -10,11 +10,6 @@ class Entity{
 		} catch (e){
 		this.mesh = resources[name+"mesh"].clone(undefined, true);
 		}
-    if(this.mesh.geometry.animations) {
-		  mixer = new THREE.AnimationMixer(this.mesh);
-		  var tmixer = mixer.clipAction( this.mesh.geometry.animations[ 0 ] );
-		  tmixer.play();
-		}
 			
 		// make physics
 		var boxShape = new CANNON.Box(new CANNON.Vec3(JSONobj.boxSize.x,JSONobj.boxSize.y,JSONobj.boxSize.z));

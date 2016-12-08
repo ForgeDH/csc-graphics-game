@@ -90,6 +90,11 @@ var menuSceneLoop = function(){
 var addEntity = function(entity){
 	GAME.scene.add(entity.mesh.parent);
 	GAME.world.add(entity.body);
+  if(entity.mesh.geometry.animations) {
+	  mixer = new THREE.AnimationMixer(entity.mesh);
+	  var tmixer = mixer.clipAction( entity.mesh.geometry.animations[ 0 ] );
+	  tmixer.play();
+	}
 }
 
 var gameSceneInit = function(){
@@ -132,7 +137,7 @@ var gameSceneInit = function(){
 		GAME.entities.push(new Entity(OBJECTS[obj]));
 	}
 	for (var enemy in ENEMIES){
-	  for(var i = 0; i < 1; i++) {
+	  for(var i = 0; i < 20; i++) {
 	    var newEnemy = new Entity(ENEMIES[enemy]);
 		  GAME.entities.push(newEnemy);
 		  addEntity(newEnemy);
