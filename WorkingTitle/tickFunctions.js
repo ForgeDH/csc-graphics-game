@@ -54,7 +54,6 @@ hitboxFunctions.coneHitbox = function(attacker){
 hitboxFunctions.hitscanHitbox = function(attacker){
 	var weapon = GAME.player.activeWeapon;
 	if(GAME.weapons[weapon].currCD <= 0){
-		console.log("FIRE");
 		var raycaster = new THREE.Raycaster();
 		
 		var knockback = new CANNON.Vec3();
@@ -68,9 +67,11 @@ hitboxFunctions.hitscanHitbox = function(attacker){
 		var offset = new THREE.Vector3();
 		offset.copy(GAME.camera.position);
 		
+		/*
 		console.log(direction.x*180/Math.PI);
 		console.log(direction.y*180/Math.PI);
 		console.log(direction.z*180/Math.PI);
+		*/
 		
 		//raycaster.set(GAME.player.body.position, direction);
 		raycaster.set(offset.add(GAME.player.mesh.position), direction);
@@ -88,16 +89,9 @@ hitboxFunctions.hitscanHitbox = function(attacker){
 				intersects.push(intersect[0]);
 			}
 		}
-		/*
-		for(var entity in GAME.entities){
-			meshes.push(GAME.entities.mesh);
-		}
-		intersects = raycaster.intersectObject(GAME.scene.children, true);
-		*/
 		for (var obj = 0; obj < intersects.length; obj++){
 			if(intersects[obj].distance < hitDist){
 				hitObj = intersects[obj].object.entity;
-				console.log(hitObj);
 				hitDist = intersects[obj].distance;
 			}
 		}
