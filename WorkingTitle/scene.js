@@ -105,7 +105,9 @@ var gameSceneInit = function(){
 	GAME.scene = new THREE.Scene();
 	var light = new THREE.PointLight( 0xffffff, 1, 10000 );
 	light.position.set( 50, 50, 50 );
-	GAME.scene.add( light );
+  if (navigator.appVersion.indexOf("Mac")!=-1)
+    light.position.y *= -1;
+  GAME.scene.add( light );
 	
 	var ambientLight = new THREE.AmbientLight( 0x00ff00, 0.5 );
 	GAME.scene.add( ambientLight );
