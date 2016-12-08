@@ -74,7 +74,7 @@ hitboxFunctions.hitscanHitbox = function(attacker){
     console.log(direction);
 		
 		var offset = new THREE.Vector3();
-		offset.copy(GAME.camera.position);
+//		offset.copy(GAME.camera.position);
 		
 		/*
 		console.log(direction.x*180/Math.PI);
@@ -82,7 +82,7 @@ hitboxFunctions.hitscanHitbox = function(attacker){
 		console.log(direction.z*180/Math.PI);
 		*/
 		
-		offset.add(GAME.player.mesh.position)
+		offset.add(GAME.player.mesh.position);
 		//raycaster.set(GAME.player.body.position, direction);
 		raycaster.set(offset, direction);
 		var intersect;
@@ -96,6 +96,16 @@ hitboxFunctions.hitscanHitbox = function(attacker){
 		for(var entity in GAME.entities){
 			intersect = raycaster.intersectObject(GAME.entities[entity].mesh);
 			if(intersect.length > 0){
+
+
+			  //DEBUG: make a sphere at point of intersection
+  			console.log(intersect[0].point);
+        var sphere = new THREE.Mesh( new THREE.SphereGeometry( 1, 5, 5 ), new THREE.MeshBasicMaterial( {color: 0xffff00} ) );
+        GAME.scene.add( sphere );
+        sphere.position.x = intersect[0].point.x;
+        sphere.position.y = intersect[0].point.y;
+        sphere.position.z = intersect[0].point.z;
+  			
 				intersects.push(intersect[0]);
 			}
 		}
