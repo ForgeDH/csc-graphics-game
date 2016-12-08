@@ -156,7 +156,7 @@ function load(JSONurl, name) {
 			}
 
 			var skinnedMesh = new THREE.SkinnedMesh(object, new THREE.MultiMaterial(materials));
-			skinnedMesh.scale.set( 1, 1, 1 );
+			skinnedMesh.scale.set( 0.1, 0.1, 0.1 );
 
 			resources[name+"mesh"] = skinnedMesh;
 			
@@ -167,7 +167,7 @@ function load(JSONurl, name) {
 			mixer.clipAction( skinnedMesh.geometry.animations[ 0 ] ).play();
 
       if(JSONobj.scale && typeof resources[name+"mesh"].geometry.scale.set == "function") {
-        resources[name+"mesh"].geometry.scale.set(JSONobj.scale, JSONobj.scale, JSONobj.scale);
+        resources[name+"mesh"].geometry.scale.set(JSONobj.scale/100, JSONobj.scale/100, JSONobj.scale/100);
       }
       if(JSONobj.rotation) {
         resources[name+"mesh"].geometry.rotateX(JSONobj.rotation[0]);
