@@ -127,5 +127,8 @@ class Entity{
 		GAME.player.mesh.add(yawObj);
 		GAME.player.invincible = 5;
 		GAME.player.canJump = false;
+		
+		// add weapon to world
+		GAME.scene.add(GAME.weapons[GAME.player.activeWeapon].mesh);
 	}
 }

@@ -209,6 +209,18 @@ tickFunctions.boxTick = function(actions){
 		this.mesh.yawObj.rotation.y -= INPUT.getMouseXChange()/100;
 	}
 	
+	// update weapon location and rotation
+	weaponMesh = GAME.weapons[GAME.player.activeWeapon].mesh;
+	weaponMesh.position.x = this.body.position.x;
+	weaponMesh.position.y = this.body.position.y+2;
+	weaponMesh.position.z = this.body.position.z;
+	forwardVec = new CANNON.Vec3(-Math.sin(facingAngle), 0, -Math.cos(facingAngle));
+	forwardVec.y = GAME.player.mesh.pitchObj.rotation.x;
+	forwardVec.normalize();
+	weaponMesh.rotation.x = forwardVec.x;
+	weaponMesh.rotation.y = forwardVec.y;
+	weaponMesh.rotation.z = forwardVec.z;
+	
 	// ACTIONS
 	while(actions.length > 0){
 		var action = actions.shift();
@@ -219,14 +231,20 @@ tickFunctions.boxTick = function(actions){
 		
 		// change weapons
 		if(action.key == "q" && action.eventType == "keydown"){
+			GAME.scene.remove(GAME.weapons[GAME.player.activeWeapon].mesh);
 			GAME.player.activeWeapon -= 1;
-			if(GAME.player.activeWeapon < 0)
+			if(GAME.player.activeWeapon < 0){
 				GAME.player.activeWeapon = GAME.player.numWeapons-1;
+			}
+			GAME.scene.add(GAME.weapons[GAME.player.activeWeapon].mesh);
 		}
 		if(action.key == "e" && action.eventType == "keydown"){
+			GAME.scene.remove(GAME.weapons[GAME.player.activeWeapon].mesh);
 			GAME.player.activeWeapon += 1;
-			if(GAME.player.activeWeapon >= numWeapons)
+			if(GAME.player.activeWeapon >= GAME.player.numWeapons){
 				GAME.player.activeWeapon = 0;
+			}
+			GAME.scene.add(GAME.weapons[GAME.player.activeWeapon].mesh);
 		}
 	}
 	

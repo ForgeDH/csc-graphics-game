@@ -6,6 +6,7 @@ class Weapon{
 		
 		// load model
 		this.mesh = resources[name+"mesh"].parent.clone(undefined, true).children[0];
+		this.mesh.position.y = 5;
 		
 		// load tick function
 		this.hit = hitboxFunctions[JSONobj.hitFunc];
