@@ -5,7 +5,7 @@ class Weapon{
 		this.name = JSONobj.name;
 		
 		// load model
-		//this.mesh = resources[name+"mesh"].parent.clone(undefined, true).children[0];
+		this.mesh = resources[name+"mesh"].parent.clone(undefined, true).children[0];
 		
 		// load tick function
 		this.hit = hitboxFunctions[JSONobj.hitFunc];
