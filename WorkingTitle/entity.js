@@ -15,6 +15,7 @@ class Entity{
 		  var tmixer = mixer.clipAction( this.mesh.geometry.animations[ 0 ] );
 		  tmixer.play();
 		}
+		this.mesh.entity = this;
 			
 		// make physics
 		var boxShape = new CANNON.Box(new CANNON.Vec3(JSONobj.boxSize.x,JSONobj.boxSize.y,JSONobj.boxSize.z));
