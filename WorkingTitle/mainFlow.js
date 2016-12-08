@@ -130,8 +130,17 @@ function load(JSONurl, name) {
 								child.material = new THREE.MeshPhongMaterial({color: 0xdddddd, specular: 0xdddddd, shininess: 30, shading: THREE.FlatShading});;
 							}
 							resources[name+"mesh"] = child;
+							if(JSONobj.scale) {
+                resources[name+"mesh"].geometry.scale(JSONobj.scale, JSONobj.scale, JSONobj.scale);
+              }
+              if(JSONobj.rotation) {
+                resources[name+"mesh"].geometry.rotateX(JSONobj.rotation[0]);
+                resources[name+"mesh"].geometry.rotateY(JSONobj.rotation[1]);
+                resources[name+"mesh"].geometry.rotateZ(JSONobj.rotation[2]);
+              }
 						}
 				}.bind(this));
 	}.bind(this));
+	
 	
 }
