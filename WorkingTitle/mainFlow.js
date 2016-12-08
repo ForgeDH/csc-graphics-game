@@ -148,7 +148,6 @@ function load(JSONurl, name) {
     
     
     
-    setTimeout( function() {
       console.log(object);
       for ( var k in materials ) {
 
@@ -156,16 +155,10 @@ function load(JSONurl, name) {
 
 			}
 
-			var skinnedMesh = new THREE.SkinnedMesh(object, materials[0], false);
-			//skinnedMesh.scale.set( 0.1, 0.1, 0.1 );
+			var skinnedMesh = new THREE.SkinnedMesh(object, new THREE.MultiMaterial(materials));
+			skinnedMesh.scale.set( 1, 1, 1 );
 
-			mixer = new THREE.AnimationMixer( skinnedMesh );
-			mixer.clipAction( skinnedMesh.geometry.animations[ 0 ] ).play();
-			
 			resources[name+"mesh"] = skinnedMesh;
-			
-			skinnedMesh.material = new THREE.MeshPhongMaterial({color: 0xdddddd, specular: 0xdddddd, shininess: 30, shading: THREE.FlatShading});;
-	    skinnedMesh.material.map = resources[name+"texture"];
 			
 			new THREE.Object3D().add(skinnedMesh);
 			
@@ -181,9 +174,6 @@ function load(JSONurl, name) {
         resources[name+"mesh"].geometry.rotateY(JSONobj.rotation[1]);
         resources[name+"mesh"].geometry.rotateZ(JSONobj.rotation[2]);
       }
-      
-      setTimeout(function() {GAME.scene.add(skinnedMesh)}, 5000);
-    }, 1000);
       
       
       
