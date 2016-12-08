@@ -121,31 +121,69 @@ function load(JSONurl, name) {
 		} );
 	}
 	
+	var scope = this;
+	
 	var loader = new THREE.OBJLoader();
-	var scope = this, animation;
 	if(JSONobj.modelURL.endsWith(".js"))
 	  loader = new THREE.JSONLoader();
+	
 	loader.load(JSONobj.modelURL, function (object, materials) {
+    resources[name+"geo"] = object;
+    resources[name+"mat"] = materials;
+/*	  var geometry = object;
 	  console.log(object);
 	  console.log(materials);
+	  */
     if(JSONobj.modelURL.endsWith(".js")) {
-    	var originalMaterial = materials[ 0 ];
-      originalMaterial.skinning = true;
-      var smesh = new THREE.SkinnedMesh( object, originalMaterial );
-      resources[name+"mesh"] = smesh;
-      (new THREE.Object3D()).add(smesh);
-      resources[name+"mesh"].mixer = new THREE.AnimationMixer( scope );
+    
+    
+    
+    
+    
+    
+    
+    
+      console.log(object);
+      for ( var k in materials ) {
 
-			// Create the animations
-			for ( var i = 0; i < object.animations.length; ++ i ) {
-
-				resources[name+"mesh"].actions[i] = resources[name+"mesh"].mixer.clipAction( object.animations[ i ] );
-		    actions.idle.setLoop(THREE.LoopRepeat);
+				materials[k].skinning = true;
 
 			}
-    } else {
 
-		  object.traverse(function (child) {
+			var skinnedMesh = new THREE.SkinnedMesh(object, new THREE.MultiMaterial(materials));
+			skinnedMesh.scale.set( 1, 1, 1 );
+
+			// Note: We test the corresponding code path with this example -
+			// you shouldn't include the next line into your own code:
+			skinnedMesh.skeleton.useVertexTexture = false;
+
+			mixer = new THREE.AnimationMixer( skinnedMesh );
+			mixer.clipAction( skinnedMesh.geometry.animations[ 0 ] ).play();    
+			
+			resources[name+"mesh"] = skinnedMesh;  
+      
+      
+      
+      
+	
+	
+/*			var originalMaterial = materials[ 0 ];
+			originalMaterial.skinning = true;
+
+			resources[name+"mesh"] = new THREE.Object3D();
+      resources[name+"mesh"].geometry = new THREE.SkinnedMesh(geometry, originalMaterial );
+			
+			var mixer = new THREE.AnimationMixer( scope );
+			resources[name+"mesh"].mixer = mixer;
+
+			// Create the animations
+			for ( var i = 0; i < geometry.animations.length; ++ i ) {
+
+				mixer.clipAction( geometry.animations[ i ] );
+
+			}
+			*/
+    } else {	  object.traverse(function (child) {
 		    if (child instanceof THREE.Mesh) {
 			    if(resources[name+"texture"]){
 				    child.material.map = resources[name+"texture"];
@@ -157,14 +195,15 @@ function load(JSONurl, name) {
 	    });
 	  }
 	  
-    if(JSONobj.scale) {
-      resources[name+"mesh"].geometry.scale(JSONobj.scale, JSONobj.scale, JSONobj.scale);
+    if(JSONobj.scale && typeof resources[name+"mesh"].geometry.scale.set == "function") {
+      resources[name+"mesh"].geometry.scale.set(JSONobj.scale, JSONobj.scale, JSONobj.scale);
     }
     if(JSONobj.rotation) {
       resources[name+"mesh"].geometry.rotateX(JSONobj.rotation[0]);
       resources[name+"mesh"].geometry.rotateY(JSONobj.rotation[1]);
       resources[name+"mesh"].geometry.rotateZ(JSONobj.rotation[2]);
     }
+    
 	  
 	});
 	

@@ -5,7 +5,11 @@ class Entity{
 		
 		// load model
 		console.log(name+"mesh");
+		try {
 		this.mesh = resources[name+"mesh"].parent.clone(undefined, true).children[0];
+		} catch (e){
+		this.mesh = resources[name+"mesh"].clone(undefined, true);
+		}
 		this.mesh.mixer = resources[name+"mesh"].mixer
 	
 		// make physics
@@ -85,6 +89,8 @@ class Entity{
 		if(this.health !== undefined){
 		    console.log(this);
 				// for some reason I needed a boolean here for it to despawn
+				if(!this.mesh.parent)
+				  this.mesh.parent = new THREE.Object3D();
 				this.mesh.parent.killable = true;
 		}
 		

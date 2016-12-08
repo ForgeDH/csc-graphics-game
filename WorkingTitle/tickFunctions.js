@@ -95,8 +95,6 @@ tickFunctions.noTick = function(){
 
 tickFunctions.enemyTick = function(){
 
-  this.mesh.mixer.update(20);
-
 	var ms = 0.1;
 	
 	var currLoc = this.body.position;
