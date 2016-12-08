@@ -1,9 +1,9 @@
 {
 	"name":"zombie",
-	"modelURL":"https://raw.githubusercontent.com/ForgeDH/csc-graphics-game/master/WorkingTitle/Entities/Enemies/enemy1/Skeleskatr.obj",
+	"modelURL":"https://raw.githubusercontent.com/ForgeDH/csc-graphics-game/master/WorkingTitle/Entities/Enemies/enemy1/Enemy1.js",
 	"textureURL":"https://rawgit.com/ForgeDH/csc-graphics-game/master/WorkingTitle/Entities/Enemies/enemy1/boneTexture3.jpg",
 	"scale": 0.1,
-	"rotationx": [0.0, 0.0, 0.0],
+	"rotation": [-1.57079632679, -1.57079632679, 0.0],
 	
 	"mass":1,
 	"boxSize":{"x":1, "y":1, "z":1},
