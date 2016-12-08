@@ -295,6 +295,7 @@ var gameSceneLoop = function(){
   this.hudBitmap.drawImage(this.watsons[Math.floor((GAME.player.currentHealth - 1)/25)], 680, 505); //680 505: Watson Image 100 140 
 
   // Reticule
+  this.hudBitmap.fillStyle = 'rgba(255,255,255,1.0)';
   this.hudBitmap.strokeRect(GAME_WINDOW_WIDTH/2-2 , window.GAME_WINDOW_HEIGHT/2-2, 5, 5);
 
   
