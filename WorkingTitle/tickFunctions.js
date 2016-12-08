@@ -65,7 +65,8 @@ hitboxFunctions.hitscanHitbox = function(attacker){
 		
 		var knockback = new CANNON.Vec3();
 		
-		/*var facingAngle = GAME.player.mesh.yawObj.rotation.y;
+		/* OBSOLETED
+		var facingAngle = GAME.player.mesh.yawObj.rotation.y;
 		var direction = new CANNON.Vec3(-Math.sin(facingAngle), 0, -Math.cos(facingAngle));
 		direction.y = GAME.player.mesh.pitchObj.rotation.x;
 		direction.normalize();
@@ -78,20 +79,21 @@ hitboxFunctions.hitscanHitbox = function(attacker){
     GAME.camera.matrixWorld.decompose( position, quaternion, scale );
     var direction = new THREE.Vector3(0, 0, -1);
     direction = direction.applyQuaternion(quaternion);
-    console.log(direction);
+    //console.log(direction);
+		
 		
 		var offset = new THREE.Vector3();
 		offset.copy(GAME.camera.position);
 		
-		/*
+		/* DEBUG
 		console.log(direction.x*180/Math.PI);
 		console.log(direction.y*180/Math.PI);
 		console.log(direction.z*180/Math.PI);
 		*/
 		
 		offset.add(GAME.player.mesh.position);
-		//raycaster.set(GAME.player.body.position, direction);
 		raycaster.set(offset, direction);
+
 		var intersect;
 		var intersects = [];
 		var hitObj;
@@ -257,9 +259,9 @@ tickFunctions.boxTick = function(actions){
 	
 	// update weapon location
 	currWeapon = GAME.weapons[GAME.player.activeWeapon];
-	currWeapon.mesh.position.x = GAME.camera.position.x + currWeapon.offset.x;
-	currWeapon.mesh.position.y = GAME.camera.position.y + currWeapon.offset.y;
-	currWeapon.mesh.position.z = GAME.camera.position.z + currWeapon.offset.z;
+	currWeapon.mesh.position.x = GAME.camera.position.x + currWeapon.posOffset.x;
+	currWeapon.mesh.position.y = GAME.camera.position.y + currWeapon.posOffset.y;
+	currWeapon.mesh.position.z = GAME.camera.position.z + currWeapon.posOffset.z;
 	
 	
 	
