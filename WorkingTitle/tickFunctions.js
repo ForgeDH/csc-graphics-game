@@ -80,7 +80,7 @@ hitboxFunctions.hitscanHitbox = function(attacker){
     console.log(direction);
 		
 		var offset = new THREE.Vector3();
-//		offset.copy(GAME.camera.position);
+		offset.copy(GAME.camera.position);
 		
 		/*
 		console.log(direction.x*180/Math.PI);
@@ -106,7 +106,7 @@ hitboxFunctions.hitscanHitbox = function(attacker){
 
 			  //DEBUG: make a sphere at point of intersection
   			console.log(intersect[0].point);
-        var sphere = new THREE.Mesh( new THREE.SphereGeometry( 1, 5, 5 ), new THREE.MeshBasicMaterial( {color: 0xffff00} ) );
+        var sphere = new THREE.Mesh( new THREE.SphereGeometry( 0.1, 5, 5 ), new THREE.MeshBasicMaterial( {color: 0xffff00} ) );
         GAME.scene.add( sphere );
         sphere.position.x = intersect[0].point.x;
         sphere.position.y = intersect[0].point.y;
