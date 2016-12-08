@@ -14,7 +14,7 @@ class Entity{
 		  mixer = new THREE.AnimationMixer(this.mesh);
 		  this.mixer = mixer;
 		  var tmixer = mixer.clipAction( this.mesh.geometry.animations[ 0 ] );
-		  //tmixer.play();
+		  tmixer.play();
 		  mixer.update(Math.random()*4);
 		}
 		this.mesh.entity = this;
