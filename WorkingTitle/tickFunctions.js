@@ -1,6 +1,7 @@
 var tickFunctions = {};
 var hitboxFunctions = {};
 var weaponCDFunctions = {};
+var weaponAnimationFunctions = {};
 
 /* HELPER FUNCTIONS */
 var killObject = function(deadObj){
@@ -142,6 +143,16 @@ hitboxFunctions.hitscanHitbox = function(attacker){
 		}
 		GAME.weapons[weapon].currCD = GAME.weapons[weapon].cooldown;
 	}
+}
+
+
+/* WEAPON ANIMATION FUNCTIONS */
+weaponAnimationFunctions.swingAnimateFunc = function(){
+	
+}
+
+weaponAnimationFunctions.boopAnimateFunc = function(){
+	
 }
 
 

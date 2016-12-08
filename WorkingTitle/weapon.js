@@ -8,10 +8,14 @@ class Weapon{
 		this.mesh = resources[name+"mesh"].parent.clone(undefined, true).children[0];
 		this.mesh.position.y = 5;
 		
-		this.offset = {};
-		this.offset.x = JSONobj.offset.x;
-		this.offset.y = JSONobj.offset.y;
-		this.offset.z = JSONobj.offset.z;
+		this.posOffset = {};
+		this.posOffset.x = JSONobj.posOffset.x;
+		this.posOffset.y = JSONobj.posOffset.y;
+		this.posOffset.z = JSONobj.posOffset.z;
+		this.rotOffset = {};
+		this.rotOffset.x = JSONobj.rotOffset.x;
+		this.rotOffset.y = JSONobj.rotOffset.y;
+		this.rotOffset.z = JSONobj.rotOffset.z;
 		
 		// load tick function
 		this.hit = hitboxFunctions[JSONobj.hitFunc];
