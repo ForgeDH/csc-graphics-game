@@ -94,7 +94,6 @@ class Entity{
 		}
 		
 		if(this.health !== undefined){
-		    console.log(this);
 				// for some reason I needed a boolean here for it to despawn
 				if(!this.mesh.parent)
 				  this.mesh.parent = new THREE.Object3D();
@@ -114,7 +113,7 @@ class Entity{
 	
 	static initPlayer(){
 		GAME.camera.position.y = 2;
-		GAME.camera.position.z = 5;
+		//GAME.camera.position.z = 5;
 		
 		var pitchObj = new THREE.Object3D();
 		pitchObj.add(GAME.camera);
@@ -130,5 +129,6 @@ class Entity{
 		
 		// add weapon to world
 		GAME.scene.add(GAME.weapons[GAME.player.activeWeapon].mesh);
+		pitchObj.add(GAME.weapons[GAME.player.activeWeapon].mesh);
 	}
 }

@@ -16,6 +16,12 @@ var killObject = function(deadObj){
 	}
 }
 
+var getRandInt = function(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
 
 /* HITBOX FUNCTIONS */
 hitboxFunctions.coneHitbox = function(attacker){
@@ -218,6 +224,15 @@ tickFunctions.boxTick = function(actions){
 		}
 	}
 	
+	// kill killable entities
+	if(INPUT.isKeyDown("l")){
+		var entity = getRandInt(0, GAME.entities.length);
+		if(GAME.entities[entity] !== GAME.player){
+			killObject(GAME.entities[entity]);
+			entity = 0;
+		}
+	}
+	
 	if(this.body.velocity.norm() > speedCap){
 		this.body.velocity.scale(0.9, this.body.velocity);
 	}
@@ -229,17 +244,13 @@ tickFunctions.boxTick = function(actions){
 		this.mesh.yawObj.rotation.y -= INPUT.getMouseXChange()/100;
 	}
 	
-	// update weapon location and rotation
-	weaponMesh = GAME.weapons[GAME.player.activeWeapon].mesh;
-	weaponMesh.position.x = this.body.position.x;
-	weaponMesh.position.y = this.body.position.y+2;
-	weaponMesh.position.z = this.body.position.z;
-	forwardVec = new CANNON.Vec3(-Math.sin(facingAngle), 0, -Math.cos(facingAngle));
-	forwardVec.y = GAME.player.mesh.pitchObj.rotation.x;
-	forwardVec.normalize();
-	weaponMesh.rotation.x = forwardVec.x;
-	weaponMesh.rotation.y = forwardVec.y;
-	weaponMesh.rotation.z = forwardVec.z;
+	// update weapon location
+	currWeapon = GAME.weapons[GAME.player.activeWeapon];
+	currWeapon.mesh.position.x = GAME.camera.position.x + currWeapon.offset.x;
+	currWeapon.mesh.position.y = GAME.camera.position.y + currWeapon.offset.y;
+	currWeapon.mesh.position.z = GAME.camera.position.z + currWeapon.offset.z;
+	
+	
 	
 	// ACTIONS
 	while(actions.length > 0){
@@ -252,19 +263,28 @@ tickFunctions.boxTick = function(actions){
 		// change weapons
 		if(action.key == "q" && action.eventType == "keydown"){
 			GAME.scene.remove(GAME.weapons[GAME.player.activeWeapon].mesh);
+			this.mesh.pitchObj.remove(GAME.weapons[GAME.player.activeWeapon].mesh);
 			GAME.player.activeWeapon -= 1;
 			if(GAME.player.activeWeapon < 0){
 				GAME.player.activeWeapon = GAME.player.numWeapons-1;
 			}
 			GAME.scene.add(GAME.weapons[GAME.player.activeWeapon].mesh);
+			this.mesh.pitchObj.add(GAME.weapons[GAME.player.activeWeapon].mesh);
 		}
 		if(action.key == "e" && action.eventType == "keydown"){
 			GAME.scene.remove(GAME.weapons[GAME.player.activeWeapon].mesh);
+			this.mesh.pitchObj.remove(GAME.weapons[GAME.player.activeWeapon].mesh);
 			GAME.player.activeWeapon += 1;
 			if(GAME.player.activeWeapon >= GAME.player.numWeapons){
 				GAME.player.activeWeapon = 0;
 			}
 			GAME.scene.add(GAME.weapons[GAME.player.activeWeapon].mesh);
+			this.mesh.pitchObj.add(GAME.weapons[GAME.player.activeWeapon].mesh);
+		}
+		
+		// quit game
+		if(action.key == "p" && action.eventType == "keydown"){
+			activeScene = new Scene(menuSceneInit, menuSceneLoop);
 		}
 	}
 	
