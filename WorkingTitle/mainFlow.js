@@ -69,6 +69,7 @@ function main() {
 function load(JSONurl, name) {
 
   function getJSONFile(url) {
+  console.log(url);
 		try {
 				if (typeof(url) !== "string")
 						throw "getJSONFile: parameter not a string";
@@ -89,7 +90,7 @@ function load(JSONurl, name) {
 				console.log(e);
 				return(String.null);
 		}
-	} 
+	}
 	
 	// load JSON
 	var JSONobj = getJSONFile(JSONurl);
@@ -121,12 +122,18 @@ function load(JSONurl, name) {
 	}
 	
 	var loader = new THREE.OBJLoader();
-	console.log("LOAD MESH: " + JSONobj.modelURL);
-	loader.load(JSONobj.modelURL, function (object, materials) {
-    var originalMaterial = materials[ 0 ];
-    originalMaterial.skinning = true;
-
-    THREE.SkinnedMesh.call( this, object, originalMaterial );
+	if(JSONobj.modelURL.endsWith(".js"))
+	  loader = new THREE.JSONLoader();
+	loader.load(JSONobj.modelURL, function (object) {
+    if(JSONobj.modelURL.endsWith(".js")) {
+    	var originalMaterial = materials[ 0 ];
+      originalMaterial.skinning = true;
+      THREE.SkinnedMesh.call( scope, geometry, originalMaterial );
+      this.animation = new THREE.Animation(
+                    mesh,
+                    object.animation);
+      this.animation.play();
+    }
 
 		object.traverse(function (child) {
 						if (child instanceof THREE.Mesh) {
