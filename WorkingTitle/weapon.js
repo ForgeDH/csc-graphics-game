@@ -2,6 +2,7 @@ class Weapon{
 	constructor(name){
 		
 		var JSONobj = resources[name];
+		this.name = JSONobj.name;
 		
 		// load model
 		//this.mesh = resources[name+"mesh"].parent.clone(undefined, true).children[0];
