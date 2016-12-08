@@ -22,7 +22,7 @@ var OBJECTS = {};
 var ENEMIES = {"enemy1":"enemy1.json"};
 
 /* WEAPON FILE STRUCTURE */
-var WEAPONS = {"sword":"sword.json"};
+var WEAPONS = {"sword":"sword.json", "wand":"wand.json"};
 
 /* MAIN -- HERE is where execution begins after window load */
 function main() {
