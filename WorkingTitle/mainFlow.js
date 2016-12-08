@@ -4,6 +4,7 @@ var GAME_WINDOW_WIDTH = 1000;
 var GAME = {};
 var activeScene;
 var BASE_URL = "https://raw.githubusercontent.com/ForgeDH/csc-graphics-game/master/WorkingTitle/";
+var mixer; //TESTING 123 TESTING 123 TESTING 123 TESTING 123 TESTING 123 TESTING 123 TESTING 123 TESTING 123 
 
 var resources = {};
 
@@ -57,6 +58,8 @@ function main() {
 	
 	function render() {
 		requestAnimationFrame( render );
+		
+		if( mixer ) mixer.update( 1.0/60 );
 		
 		activeScene.runningLoop();
 	}
@@ -142,7 +145,7 @@ function load(JSONurl, name) {
     
     
     
-    
+    setTimeout( function() {
       console.log(object);
       for ( var k in materials ) {
 
@@ -150,39 +153,39 @@ function load(JSONurl, name) {
 
 			}
 
-			var skinnedMesh = new THREE.SkinnedMesh(object, new THREE.MultiMaterial(materials));
-			skinnedMesh.scale.set( 1, 1, 1 );
-
-			// Note: We test the corresponding code path with this example -
-			// you shouldn't include the next line into your own code:
-			skinnedMesh.skeleton.useVertexTexture = false;
+			var skinnedMesh = new THREE.SkinnedMesh(object, materials[0], false);
+			skinnedMesh.scale.set( 0.1, 0.1, 0.1 );
 
 			mixer = new THREE.AnimationMixer( skinnedMesh );
-			mixer.clipAction( skinnedMesh.geometry.animations[ 0 ] ).play();    
+			mixer.clipAction( skinnedMesh.geometry.animations[ 0 ] ).play();
 			
-			resources[name+"mesh"] = skinnedMesh;  
+			resources[name+"mesh"] = skinnedMesh;
+			
+			skinnedMesh.material = new THREE.MeshPhongMaterial({color: 0xdddddd, specular: 0xdddddd, shininess: 30, shading: THREE.FlatShading});;
+	    skinnedMesh.material.map = resources[name+"texture"];
+			
+			new THREE.Object3D().add(skinnedMesh);
+			
+			
+			mixer = new THREE.AnimationMixer( skinnedMesh );
+			mixer.clipAction( skinnedMesh.geometry.animations[ 0 ] ).play();
+
+      if(JSONobj.scale && typeof resources[name+"mesh"].geometry.scale.set == "function") {
+        resources[name+"mesh"].geometry.scale.set(JSONobj.scale, JSONobj.scale, JSONobj.scale);
+      }
+      if(JSONobj.rotation) {
+        resources[name+"mesh"].geometry.rotateX(JSONobj.rotation[0]);
+        resources[name+"mesh"].geometry.rotateY(JSONobj.rotation[1]);
+        resources[name+"mesh"].geometry.rotateZ(JSONobj.rotation[2]);
+      }
       
+      setTimeout(function() {GAME.scene.add(skinnedMesh)}, 5000);
+    }, 1000);
       
       
       
 	
 	
-/*			var originalMaterial = materials[ 0 ];
-			originalMaterial.skinning = true;
-
-			resources[name+"mesh"] = new THREE.Object3D();
-      resources[name+"mesh"].geometry = new THREE.SkinnedMesh(geometry, originalMaterial );
-			
-			var mixer = new THREE.AnimationMixer( scope );
-			resources[name+"mesh"].mixer = mixer;
-
-			// Create the animations
-			for ( var i = 0; i < geometry.animations.length; ++ i ) {
-
-				mixer.clipAction( geometry.animations[ i ] );
-
-			}
-			*/
     } else {	  object.traverse(function (child) {
 		    if (child instanceof THREE.Mesh) {
 			    if(resources[name+"texture"]){
@@ -193,8 +196,7 @@ function load(JSONurl, name) {
 			    resources[name+"mesh"] = child;
 		    }
 	    });
-	  }
-	  
+	    
     if(JSONobj.scale && typeof resources[name+"mesh"].geometry.scale.set == "function") {
       resources[name+"mesh"].geometry.scale.set(JSONobj.scale, JSONobj.scale, JSONobj.scale);
     }
@@ -203,6 +205,8 @@ function load(JSONurl, name) {
       resources[name+"mesh"].geometry.rotateY(JSONobj.rotation[1]);
       resources[name+"mesh"].geometry.rotateZ(JSONobj.rotation[2]);
     }
+	  }
+	  
     
 	  
 	});
