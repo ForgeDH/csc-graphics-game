@@ -94,6 +94,7 @@ var INPUT = {
 document.addEventListener("keydown", 
   function(event) {
 		if(!INPUT.isKeyDown(event.key)){
+			event.eventType = "keydown";
 			INPUT.queue.push(event);
 			INPUT.state.set(event.key, true);
 		}
@@ -102,6 +103,7 @@ document.addEventListener("keydown",
 
 document.addEventListener("keyup", 
   function(event) {
+		event.eventType = "keyup";
     INPUT.queue.push(event);
     INPUT.state.set(event.key, false);
   }
@@ -109,6 +111,7 @@ document.addEventListener("keyup",
 
 document.addEventListener("mousedown",
   function(event) {
+		event.eventType = "mousedown";
     INPUT.queue.push(event);
     if(event.button == 0)
       INPUT.lButton = true;
@@ -119,6 +122,7 @@ document.addEventListener("mousedown",
 
 document.addEventListener("mouseup",
   function(event) {
+		event.eventType = "mouseup";
     INPUT.queue.push(event);
     if(event.button == 0)
       INPUT.lButton = false;

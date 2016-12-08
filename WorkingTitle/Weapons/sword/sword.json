@@ -1,7 +1,7 @@
 {
 	"name":"sword",
-	"modelURL":"https://raw.githubusercontent.com/ForgeDH/csc-graphics-game/master/WorkingTitle/box.obj",
-	"textureURL":"https://rawgit.com/ForgeDH/csc-graphics-game/master/WorkingTitle/Entities/Objects/object1/MELogo.jpg",
+	"modelURL":"https://raw.githubusercontent.com/ForgeDH/csc-graphics-game/master/WorkingTitle/Weapons/sword/Sword1.obj",
+	"textureURL":"https://rawgit.com/ForgeDH/csc-graphics-game/master/WorkingTitle/Weapons/sword/sword.jpg",
 
 	"damage":26,
 	"knockback":10,
