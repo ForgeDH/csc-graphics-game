@@ -294,6 +294,10 @@ var gameSceneLoop = function(){
   //FACE
   this.hudBitmap.drawImage(this.watsons[Math.floor((GAME.player.currentHealth - 1)/25)], 680, 505); //680 505: Watson Image 100 140 
 
+  // Reticule
+  this.hudBitmap.strokeRect(GAME_WINDOW_WIDTH/2-2 , window.GAME_WINDOW_HEIGHT/2-2, 5, 5);
+
+  
 	this.hudTexture.needsUpdate = true;
   // Render HUD on top of the scene.
   GAME.renderer.render(this.sceneHUD, this.cameraHUD);
