@@ -5,6 +5,7 @@ var GAME = {};
 var activeScene;
 var BASE_URL = "https://raw.githubusercontent.com/ForgeDH/csc-graphics-game/master/WorkingTitle/";
 var mixer; //TESTING 123 TESTING 123 TESTING 123 TESTING 123 TESTING 123 TESTING 123 TESTING 123 TESTING 123 
+var clock  = new THREE.Clock();
 
 var resources = {};
 
@@ -59,7 +60,9 @@ function main() {
 	function render() {
 		requestAnimationFrame( render );
 		
-		if( mixer ) mixer.update( 1.0/60 );
+	  var delta = clock.getDelta();
+    var theta = clock.getElapsedTime();
+		if( mixer ) mixer.update( delta );
 		
 		activeScene.runningLoop();
 	}
@@ -154,7 +157,7 @@ function load(JSONurl, name) {
 			}
 
 			var skinnedMesh = new THREE.SkinnedMesh(object, materials[0], false);
-			skinnedMesh.scale.set( 0.1, 0.1, 0.1 );
+			//skinnedMesh.scale.set( 0.1, 0.1, 0.1 );
 
 			mixer = new THREE.AnimationMixer( skinnedMesh );
 			mixer.clipAction( skinnedMesh.geometry.animations[ 0 ] ).play();
