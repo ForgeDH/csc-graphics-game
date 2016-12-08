@@ -235,10 +235,12 @@ tickFunctions.boxTick = function(actions){
 	}
 	
 	// update weapon location
-	weaponMesh = GAME.weapons[GAME.player.activeWeapon].mesh;
-	weaponMesh.position.x = GAME.camera.position.x;
-	weaponMesh.position.y = GAME.camera.position.y;
-	weaponMesh.position.z = GAME.camera.position.z-2;
+	currWeapon = GAME.weapons[GAME.player.activeWeapon];
+	currWeapon.mesh.position.x = GAME.camera.position.x + currWeapon.offset.x;
+	currWeapon.mesh.position.y = GAME.camera.position.y + currWeapon.offset.y;
+	currWeapon.mesh.position.z = GAME.camera.position.z + currWeapon.offset.z;
+	
+	
 	
 	// ACTIONS
 	while(actions.length > 0){

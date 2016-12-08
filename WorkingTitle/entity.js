@@ -113,7 +113,7 @@ class Entity{
 	
 	static initPlayer(){
 		GAME.camera.position.y = 2;
-		GAME.camera.position.z = 5;
+		//GAME.camera.position.z = 5;
 		
 		var pitchObj = new THREE.Object3D();
 		pitchObj.add(GAME.camera);
