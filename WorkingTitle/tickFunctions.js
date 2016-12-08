@@ -259,6 +259,9 @@ tickFunctions.boxTick = function(actions){
 	
 	// update weapon location
 	currWeapon = GAME.weapons[GAME.player.activeWeapon];
+	if(currWeapon.animationFrames > 0){
+		currWeapon.animate();
+	}
 	currWeapon.mesh.position.x = GAME.camera.position.x + currWeapon.posOffset.x;
 	currWeapon.mesh.position.y = GAME.camera.position.y + currWeapon.posOffset.y;
 	currWeapon.mesh.position.z = GAME.camera.position.z + currWeapon.posOffset.z;
@@ -274,6 +277,7 @@ tickFunctions.boxTick = function(actions){
 		// attack
 		if(action.buttons == 1){
 			GAME.weapons[this.activeWeapon].hit(this);
+			currWeapon.animationFrames = currWeapon.cooldown;
 		}
 		
 		// change weapons
