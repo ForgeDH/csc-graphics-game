@@ -60,19 +60,15 @@ hitboxFunctions.coneHitbox = function(attacker){
 	direction.scale(GAME.weapons[weapon].knockback, knockback);
 	
 	if(GAME.weapons[weapon].currCD <= 0){
-		console.log("swing");
 		GAME.weapons[weapon].currCD = GAME.weapons[weapon].cooldown;
 		for (var entity in GAME.entities){
 			dist = position.distanceTo(GAME.entities[entity].body.position);
 			if(dist < GAME.weapons[weapon].range){
-				console.log("check in range");
 				GAME.entities[entity].body.position.vsub(position, entityDir);
 				entityDir.normalize();
 				betweenAngle = Math.acos(entityDir.dot(direction));
 				if(betweenAngle < GAME.weapons[weapon].angle){
-					console.log("check angle");
 					if(GAME.entities[entity].mesh.parent.killable){
-						console.log("hit");
 						GAME.entities[entity].currentHealth -= GAME.weapons[weapon].damage;
 						GAME.entities[entity].body.velocity.vadd(knockback, GAME.entities[entity].body.velocity);
 					}
@@ -178,6 +174,18 @@ tickFunctions.boxTick = function(actions){
 		// attack
 		if(action.buttons == 1){
 			GAME.weapons[this.activeWeapon].hit(this);
+		}
+		
+		// change weapons
+		if(action.key == "q" && action.eventType == "keydown"){
+			GAME.player.activeWeapon -= 1;
+			if(GAME.player.activeWeapon < 0)
+				GAME.player.activeWeapon = GAME.player.numWeapons-1;
+		}
+		if(action.key == "e" && action.eventType == "keydown"){
+			GAME.player.activeWeapon += 1;
+			if(GAME.player.activeWeapon >= numWeapons)
+				GAME.player.activeWeapon = 0;
 		}
 	}
 	
