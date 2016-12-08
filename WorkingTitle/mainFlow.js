@@ -122,7 +122,7 @@ function load(JSONurl, name) {
 	
 	var loader = new THREE.OBJLoader();
 	loader.load(JSONobj.modelURL, function (object) {
-    if(JSONobj.modelURL.endsWith(".js") {
+    if(JSONobj.modelURL.endsWith(".js")) {
     	var originalMaterial = materials[ 0 ];
       originalMaterial.skinning = true;
       THREE.SkinnedMesh.call( scope, geometry, originalMaterial ); // QUESTION (2)
