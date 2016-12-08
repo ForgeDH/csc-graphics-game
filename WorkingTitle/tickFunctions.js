@@ -49,23 +49,31 @@ hitboxFunctions.coneHitbox = function(attacker){
 	var knockback = new CANNON.Vec3();
 	var entityDir = new CANNON.Vec3();
 	var betweenAngle;
-	
+
+	var weapon = GAME.player.activeWeapon;	
 	var position = new CANNON.Vec3(attacker.body.position.x, attacker.body.position.y, attacker.body.position.z);
-	var direction = CANNON.Quaternion.copy(attacker.body.quaternion);
+	
+	var facingAngle = GAME.player.mesh.yawObj.rotation.y;
+ 	var direction = new CANNON.Vec3(-Math.sin(facingAngle), 0, -Math.cos(facingAngle));
 	direction.normalize();
-	direction.scale(GAME.weapons[this.activeWeapon].knockback, knockback);
+	console.log(direction);
+	direction.scale(GAME.weapons[weapon].knockback, knockback);
 	
 	if(GAME.weapons[weapon].currCD <= 0){
+		console.log("swing");
 		GAME.weapons[weapon].currCD = GAME.weapons[weapon].cooldown;
 		for (var entity in GAME.entities){
 			dist = position.distanceTo(GAME.entities[entity].body.position);
-			if(dist < GAME.weapons[this.activeWeapon].range){
+			if(dist < GAME.weapons[weapon].range){
+				console.log("check in range");
 				GAME.entities[entity].body.position.vsub(position, entityDir);
 				entityDir.normalize();
 				betweenAngle = Math.acos(entityDir.dot(direction));
-				if(betweenAngle < GAME.weapons[this.activeWeapon].angle){
+				if(betweenAngle < GAME.weapons[weapon].angle){
+					console.log("check angle");
 					if(GAME.entities[entity].mesh.parent.killable){
-						GAME.entities[entity].currentHealth -= GAME.weapons[this.activeWeapon].damage;
+						console.log("hit");
+						GAME.entities[entity].currentHealth -= GAME.weapons[weapon].damage;
 						GAME.entities[entity].body.velocity.vadd(knockback, GAME.entities[entity].body.velocity);
 					}
 				}
@@ -173,7 +181,7 @@ tickFunctions.boxTick = function(actions){
 		}
 	}
 	
-	// I-frames and J-frames
+	// I-frames and J-frames	
 	if(this.invincible > 0){
 		this.invincible -= 1;
 	}

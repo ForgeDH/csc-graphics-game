@@ -42,7 +42,7 @@ class Entity{
 			this.health = 100;
 			this.currentHealth = 100;
 			this.jumpFrames = 0;
-			this.activeWeapon = "sword";
+			this.activeWeapon = 0;
 			
 			/* event code adapted from 
 			https://schteppe.github.io/cannon.js/examples/js/PointerLockControls.js
