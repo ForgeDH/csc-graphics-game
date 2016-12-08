@@ -90,11 +90,6 @@ var menuSceneLoop = function(){
 var addEntity = function(entity){
 	GAME.scene.add(entity.mesh.parent);
 	GAME.world.add(entity.body);
-  if(entity.mesh.geometry.animations) {
-	  mixer = new THREE.AnimationMixer(entity.mesh);
-	  var tmixer = mixer.clipAction( entity.mesh.geometry.animations[ 0 ] );
-	  tmixer.play();
-	}
 }
 
 var gameSceneInit = function(){
