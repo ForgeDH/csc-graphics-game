@@ -18,48 +18,21 @@ var killObject = function(deadObj){
 
 
 /* HITBOX FUNCTIONS */
-/*
-hitboxFunctions.coneHitbox = function(position, direction, angle, range, damage, knockbackAmount){
-	var dist;
-	var knockback = new CANNON.Vec3();
-	var entityDir = new CANNON.Vec3();
-	var betweenAngle;
-	direction.normalize();
-	direction.scale(knockbackAmount, knockback);
-	
-	for (var entity in GAME.entities){
-		dist = position.distanceTo(GAME.entities[entity].body.position);
-		if(dist < range){
-			GAME.entities[entity].body.position.vsub(position, entityDir);
-			entityDir.normalize();
-			betweenAngle = Math.acos(entityDir.dot(direction));
-			if(betweenAngle < angle){
-				if(GAME.entities[entity].mesh.parent.killable){
-					GAME.entities[entity].currentHealth -= damage;
-					GAME.entities[entity].body.velocity.vadd(knockback, GAME.entities[entity].body.velocity);
-				}
-			}
-		}
-	}
-}
-*/
-
 hitboxFunctions.coneHitbox = function(attacker){
-	var dist;
-	var knockback = new CANNON.Vec3();
-	var entityDir = new CANNON.Vec3();
-	var betweenAngle;
-
 	var weapon = GAME.player.activeWeapon;	
-	var position = new CANNON.Vec3(attacker.body.position.x, attacker.body.position.y, attacker.body.position.z);
-	
-	var facingAngle = GAME.player.mesh.yawObj.rotation.y;
- 	var direction = new CANNON.Vec3(-Math.sin(facingAngle), 0, -Math.cos(facingAngle));
-	direction.normalize();
-	console.log(direction);
-	direction.scale(GAME.weapons[weapon].knockback, knockback);
-	
 	if(GAME.weapons[weapon].currCD <= 0){
+		var dist;
+		var knockback = new CANNON.Vec3();
+		var entityDir = new CANNON.Vec3();
+		var betweenAngle;
+
+		var position = new CANNON.Vec3(attacker.body.position.x, attacker.body.position.y, attacker.body.position.z);
+		
+		var facingAngle = GAME.player.mesh.yawObj.rotation.y;
+		var direction = new CANNON.Vec3(-Math.sin(facingAngle), 0, -Math.cos(facingAngle));
+		direction.normalize();
+		direction.scale(GAME.weapons[weapon].knockback, knockback);
+
 		GAME.weapons[weapon].currCD = GAME.weapons[weapon].cooldown;
 		for (var entity in GAME.entities){
 			dist = position.distanceTo(GAME.entities[entity].body.position);
@@ -75,6 +48,33 @@ hitboxFunctions.coneHitbox = function(attacker){
 				}
 			}
 		}
+	}
+}
+
+hitboxFunctions.hitscanHitbox = function(attacker){
+	var weapon = GAME.player.activeWeapon;
+	if(GAME.weapons[weapon].currCD <= 0){
+		console.log("FIRE");
+		var raycaster = new THREE.Raycaster();
+		
+		var dist;
+		var knockback = new CANNON.Vec3();
+		var entityDir = new CANNON.Vec3();
+		var betweenAngle;
+
+		var position = new CANNON.Vec3(attacker.body.position.x, attacker.body.position.y, attacker.body.position.z);
+		
+		var facingAngle = GAME.player.mesh.yawObj.rotation.y;
+		var direction = new CANNON.Vec3(-Math.sin(facingAngle), 0, -Math.cos(facingAngle));
+		direction.normalize();
+		direction.scale(GAME.weapons[weapon].knockback, knockback);
+		
+		raycaster.set(position, direction);
+		var intersects = raycaster.intersectObject(scene.children);
+		for (var obj = 0; obj < intersects.length; obj++){
+			console.log("HIT");
+		}
+		GAME.weapons[weapon].currCD = GAME.weapons[weapon].cooldown;
 	}
 }
 
