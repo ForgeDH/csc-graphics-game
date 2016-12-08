@@ -2,6 +2,9 @@
 	"name":"watson",
 	"modelURL":"https://raw.githubusercontent.com/ForgeDH/csc-graphics-game/master/WorkingTitle/box.obj",
 	"textureURL":"https://rawgit.com/ForgeDH/csc-graphics-game/master/WorkingTitle/Entities/Objects/object1/MELogo.jpg",
+	"scale": 1.0,
+	"rotationx": [0.0, 0.0, 0.0],
+	
 	"mass":1,
 	"boxSize":{"x":1, "y":1, "z":1},
 	"boxPos":{"x":0, "y":10, "z":0},
