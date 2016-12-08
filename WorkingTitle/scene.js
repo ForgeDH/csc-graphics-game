@@ -132,7 +132,7 @@ var gameSceneInit = function(){
 		GAME.entities.push(new Entity(OBJECTS[obj]));
 	}
 	for (var enemy in ENEMIES){
-	  for(var i = 0; i < 20; i++) {
+	  for(var i = 0; i < 1; i++) {
 	    var newEnemy = new Entity(ENEMIES[enemy]);
 		  GAME.entities.push(newEnemy);
 		  addEntity(newEnemy);

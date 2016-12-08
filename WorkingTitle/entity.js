@@ -4,7 +4,9 @@ class Entity{
 		var JSONobj = resources[name];
 		
 		// load model
+		console.log(name+"mesh");
 		this.mesh = resources[name+"mesh"].parent.clone(undefined, true).children[0];
+		this.mesh.mixer = resources[name+"mesh"].mixer
 	
 		// make physics
 		var boxShape = new CANNON.Box(new CANNON.Vec3(JSONobj.boxSize.x,JSONobj.boxSize.y,JSONobj.boxSize.z));
