@@ -58,11 +58,20 @@ hitboxFunctions.hitscanHitbox = function(attacker){
 		
 		var knockback = new CANNON.Vec3();
 		
-		var facingAngle = GAME.player.mesh.yawObj.rotation.y;
+		/*var facingAngle = GAME.player.mesh.yawObj.rotation.y;
 		var direction = new CANNON.Vec3(-Math.sin(facingAngle), 0, -Math.cos(facingAngle));
 		direction.y = GAME.player.mesh.pitchObj.rotation.x;
 		direction.normalize();
 		direction.scale(GAME.weapons[weapon].knockback, knockback);
+		*/
+		
+		var position = new THREE.Vector3();
+    var quaternion = new THREE.Quaternion();
+    var scale = new THREE.Vector3();
+    GAME.camera.matrixWorld.decompose( position, quaternion, scale );
+    var direction = new THREE.Vector3(0, 0, -1);
+    direction = direction.applyQuaternion(quaternion);
+    console.log(direction);
 		
 		var offset = new THREE.Vector3();
 		offset.copy(GAME.camera.position);
@@ -73,8 +82,9 @@ hitboxFunctions.hitscanHitbox = function(attacker){
 		console.log(direction.z*180/Math.PI);
 		*/
 		
+		offset.add(GAME.player.mesh.position)
 		//raycaster.set(GAME.player.body.position, direction);
-		raycaster.set(offset.add(GAME.player.mesh.position), direction);
+		raycaster.set(offset, direction);
 		var intersect;
 		var intersects = [];
 		var hitObj;
