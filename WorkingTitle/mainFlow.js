@@ -122,8 +122,10 @@ function load(JSONurl, name) {
 	}
 	
 	var loader = new THREE.OBJLoader();
+	if(JSONobj.modelURL.endsWith(".js"))
+	  loader = new THREE.JSONLoader();
 	loader.load(JSONobj.modelURL, function (object) {
-/*    if(JSONobj.modelURL.endsWith(".js")) {
+    if(JSONobj.modelURL.endsWith(".js")) {
     	var originalMaterial = materials[ 0 ];
       originalMaterial.skinning = true;
       THREE.SkinnedMesh.call( scope, geometry, originalMaterial );
@@ -131,7 +133,7 @@ function load(JSONurl, name) {
                     mesh,
                     object.animation);
       this.animation.play();
-    }*/
+    }
 
 		object.traverse(function (child) {
 						if (child instanceof THREE.Mesh) {
