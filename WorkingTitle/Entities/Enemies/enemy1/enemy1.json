@@ -3,7 +3,7 @@
 	"modelURL":"https://rawgit.com/ForgeDH/csc-graphics-game/master/WorkingTitle/Entities/Enemies/enemy1/Snek.js",
 	"textureURL":"https://rawgit.com/ForgeDH/csc-graphics-game/master/WorkingTitle/Entities/Enemies/enemy1/boneTexture3.jpg",
 	"scale": 0.1,
-	"rotation": [0, 1.57, 3.14],
+	"rotation": [1.57, 0, 3.14],
 	
 	"mass":1,
 	"boxSize":{"x":1, "y":1, "z":1},
