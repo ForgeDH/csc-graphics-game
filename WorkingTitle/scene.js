@@ -100,6 +100,9 @@ var gameSceneInit = function(){
 	GAME.enemies = [];
 	GAME.weapons = [];
 
+	GAME.globalTimer = 0;
+	GAME.spawnRate = 3600;
+	GAME.spawnInc = 5;
 
   // create THREE scene, light and camera
 	GAME.scene = new THREE.Scene();
@@ -142,13 +145,14 @@ var gameSceneInit = function(){
 	Entity.initPlayer();
 	setTimeout(function(){addEntity(GAME.player)}, 100);
 	GAME.entities.push(GAME.player);
+	/*
 	for (var enemy in ENEMIES){
 	  for(var i = 0; i < 20; i++) {
 	    var newEnemy = new Entity(ENEMIES[enemy]);
 		  GAME.entities.push(newEnemy);
 		  addEntity(newEnemy);
 		}
-	}
+	}*/
 	
 	// load player
 	/*
@@ -209,6 +213,18 @@ var gameSceneInit = function(){
 }
 
 var gameSceneLoop = function(){
+	
+	if(GAME.globalTimer % GAME.spawnRate == 0){
+		console.log("NEW WAVE");
+		for (var enemy in ENEMIES){
+			for(var i = 0; i < (20 + (GAME.globalTimer / GAME.spawnRate) * GAME.spawnInc) ; i++) {
+				var newEnemy = new Entity(ENEMIES[enemy]);
+				GAME.entities.push(newEnemy);
+				addEntity(newEnemy);
+			}
+		}
+	}
+	
 	//handle input
 	var inputList = [];
 	while (INPUT.eventsToHandle() == true){
@@ -314,4 +330,5 @@ var gameSceneLoop = function(){
 	this.hudTexture.needsUpdate = true;
   // Render HUD on top of the scene.
   GAME.renderer.render(this.sceneHUD, this.cameraHUD);
+	GAME.globalTimer += 1;
 }
