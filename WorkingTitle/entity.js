@@ -21,6 +21,9 @@ class Entity{
 		this.mesh.position.y = JSONobj.boxPos.y;
 		console.log(name + ": " + this.mesh.position.y);
 		this.mesh.position.z = JSONobj.boxPos.z;
+		this.mesh.rotation.x = JSONobj.boxRot.x;
+		this.mesh.rotation.y = JSONobj.boxRot.y;
+		this.mesh.rotation.z = JSONobj.boxRot.z;
 		this.mesh.entity = this;
 			
 		// make physics
