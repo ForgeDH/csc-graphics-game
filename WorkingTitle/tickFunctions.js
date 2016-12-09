@@ -48,8 +48,9 @@ hitboxFunctions.coneHitbox = function(attacker){
 				GAME.entities[entity].body.position.vsub(position, entityDir);
 				entityDir.normalize();
 				betweenAngle = Math.acos(entityDir.dot(direction));
+				entityDir.scale(GAME.weapons[weapon].knockback, knockback);
 				if(betweenAngle < GAME.weapons[weapon].angle){
-					if(GAME.entities[entity].mesh.parent.killable){
+					if(GAME.entities[entity].mesh.parent.killable && GAME.entities[entity] !== GAME.player){
 						GAME.entities[entity].currentHealth -= GAME.weapons[weapon].damage;
 						GAME.entities[entity].body.velocity.vadd(knockback, GAME.entities[entity].body.velocity);
 					}
