@@ -1,6 +1,5 @@
 class Entity{
 	constructor(name, isPlayer){
-		
 		var JSONobj = resources[name];
 		
 		// load model
