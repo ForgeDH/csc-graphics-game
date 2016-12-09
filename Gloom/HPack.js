@@ -2,7 +2,12 @@ class HPack{
 	constructor(man){
 
 		// load model
-    this.mesh = new THREE.Mesh( new THREE.SphereGeometry( 1.0, 5, 5 ), new THREE.MeshBasicMaterial( {color: 0x00ff00} ) );
+    //this.mesh = new THREE.Mesh( new THREE.SphereGeometry( 1.0, 5, 5 ), new THREE.MeshBasicMaterial( {color: 0x00ff00} ) );
+		try {
+		this.mesh = resources[name+"mesh"].parent.clone(undefined, true).children[0];
+		} catch (e){
+		this.mesh = resources[name+"mesh"].clone(undefined, true);
+		}
     var ob = new THREE.Object3D();
     ob.add(this.mesh);
     

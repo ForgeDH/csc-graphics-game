@@ -45,6 +45,7 @@ function main() {
 	for (var weapon in WEAPONS){
 		load(BASE_URL + 'Weapons/' + weapon + '/' + WEAPONS[weapon],WEAPONS[weapon]);
 	}
+	load(BASE_URL + 'Entities/medPac/medPac.json', 'medPac.json');
 	load(BASE_URL + 'Entities/Objects/object1/object1.json', 'object1.json');//load player
 
 

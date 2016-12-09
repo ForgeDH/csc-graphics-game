@@ -1,0 +1,7 @@
+{
+	"name":"medPac",
+	"modelURL":"https://raw.githubusercontent.com/ForgeDH/csc-graphics-game/master/Gloom/Entities/MedPac.obj",
+	"textureURL":"https://rawgit.com/ForgeDH/csc-graphics-game/master/Gloom/Entities/medPac/medPac.jpg",
+	
+	"mass":0
+}
