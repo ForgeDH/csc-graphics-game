@@ -9,11 +9,6 @@ class Entity{
 		} catch (e){
 		this.mesh = resources[name+"mesh"].clone(undefined, true);
 		}
-		this.mesh.position.x = JSONobj.boxPos.x;
-		this.mesh.position.y = JSONobj.boxPos.y;
-		this.mesh.position.z = JSONobj.boxPos.z;
-		this.mesh.entity = this;
-
     if(this.mesh.geometry.animations) {
 		  mixer = new THREE.AnimationMixer(this.mesh);
 		  this.mixer = mixer;
@@ -21,15 +16,60 @@ class Entity{
 		  tmixer.play();
 		  mixer.update(Math.random()*4);
 		}
-
+		/*
+		this.mesh.position.x = JSONobj.boxPos.x;
+		this.mesh.position.y = JSONobj.boxPos.y;
+		this.mesh.position.z = JSONobj.boxPos.z;*/
+		this.mesh.rotation.x = JSONobj.boxRot.x;
+		this.mesh.rotation.y = JSONobj.boxRot.y;
+		this.mesh.rotation.z = JSONobj.boxRot.z;
+		this.mesh.entity = this;
 			
 		// make physics
-		var boxShape = new CANNON.Box(new CANNON.Vec3(JSONobj.boxSize.x,JSONobj.boxSize.y,JSONobj.boxSize.z));
+		var boxShape;
+		if(name == "wall1.json"){
+			boxShape = new CANNON.Box(new CANNON.Vec3(JSONobj.boxSize.x-90,JSONobj.boxSize.y,JSONobj.boxSize.z+99.5));
+		} else if(name == "wall2.json"){
+			boxShape = new CANNON.Box(new CANNON.Vec3(JSONobj.boxSize.x-90,JSONobj.boxSize.y,JSONobj.boxSize.z+99.5));
+		} else if(name == "wall3.json"){
+			boxShape = new CANNON.Box(new CANNON.Vec3(JSONobj.boxSize.x-90,JSONobj.boxSize.y,JSONobj.boxSize.z+99.5));
+		} else if(name == "wall4.json"){
+			boxShape = new CANNON.Box(new CANNON.Vec3(JSONobj.boxSize.x-90,JSONobj.boxSize.y,JSONobj.boxSize.z+99.5));
+		} else {
+			boxShape = new CANNON.Box(new CANNON.Vec3(JSONobj.boxSize.x,JSONobj.boxSize.y,JSONobj.boxSize.z));
+		}
 		this.body = new CANNON.Body({mass: JSONobj.mass, shape: boxShape});
 		this.body.position.set(JSONobj.boxPos.x, JSONobj.boxPos.y, JSONobj.boxPos.z);
 		this.body.quaternion.setFromEuler(JSONobj.boxRot.x, JSONobj.boxRot.y, JSONobj.boxRot.z, "XYZ");
 		this.body.linearDamping = 0.3; //air resistance
 		this.body.entity = this;
+		
+		if(name == "wall1.json"){
+			this.body.position.z -= 100;
+			this.body.position.x -= 105;
+			this.mesh.parent.position.x += 105;
+			//this.mesh.rotation.x -= 1.57;
+		}
+		if(name == "wall2.json"){
+			this.body.position.x += 200;
+			this.body.position.z += 100;
+			this.body.position.x -= 95;
+			this.mesh.parent.position.x += 95;
+			//this.mesh.rotation.x -= 1.57;
+		}
+		if(name == "wall3.json"){
+			this.body.position.x -= 100;
+			this.body.position.z += 105;
+			this.mesh.parent.position.z -= 105;
+			//this.mesh.rotation.y -= 1.57;
+		}
+		if(name == "wall4.json"){
+			this.body.position.x += 100;
+			this.body.position.z -= 105;
+			this.mesh.parent.position.z += 105;
+			this.mesh.rotation.z -= 3.14;
+			//this.mesh.rotation.y -= 1.57;
+		}
 		
 		// load tick function
 		this.tick = tickFunctions[JSONobj.tickFunc];
