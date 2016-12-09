@@ -20,7 +20,7 @@ var Arena1 = ["floor1.json", "ceiling1.json", "wall1.json", "wall2.json", "wall3
 var ARENAS = {"Arena1":Arena1};
 
 /* ENTITY FILE STRUCTURE */
-var OBJECTS = {};
+var OBJECTS = {"crate":"crate.js"};
 var ENEMIES = {"enemy1":"enemy1.json", "enemy2":"enemy2.json"};
 
 /* WEAPON FILE STRUCTURE */
