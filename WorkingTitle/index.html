@@ -5,13 +5,18 @@
 		<title>Working Title</title>
 		<style>
 			canvas {
-    position: absolute;
-    top:0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin:auto;}
+        position: absolute;
+        top:0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin:auto;
+        clear: left;
+      }
 			img {display: none;}
+			#credits {
+			  float: right;
+			}
 		</style>
 	</head>
 	<body onload="main()">
@@ -21,7 +26,10 @@
 	  <img id="watson100" src="Watson_100.png" />
 	  <img id="doomArt" src="doom.jpg" />
 	  <img id="HUDimgBack" src="HUDimg.jpg" />
+	  <img id="gameOverImage" src="sucks.png" />
+	  <img id="controlsImage" src="controls.png" />
 	  <img id="crosshair1" src="crosshair.png" />
+	  <div id="credits">PLS</div>
 		<script src="Dependencies/cannon.min.js"></script>
 		<script src="Dependencies/three.min.js"></script>
 		<script src="Dependencies/OBJLoader.js"></script>
@@ -29,6 +37,7 @@
 		<script src="entity.js"></script>
 		<script src="weapon.js"></script>
 		<script src="scene.js"></script>
+		<script src="staticScenes.js"></script>
 		<script src="tickFunctions.js"></script>
 		<script type="text/javascript" src="mainFlow.js"></script>
 	</body>

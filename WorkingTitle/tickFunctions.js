@@ -322,7 +322,7 @@ tickFunctions.boxTick = function(actions){
 		
 		// quit game
 		if(action.key == "p" && action.eventType == "keydown"){
-			activeScene = new Scene(menuSceneInit, menuSceneLoop);
+			activeScene = new Scene(gameOverSceneInit, gameOverSceneLoop);
 		}
 	}
 	
@@ -336,5 +336,5 @@ tickFunctions.boxTick = function(actions){
 	
 	//FALLING INTO THE VOID
 	if(this.mesh.position.y < -50 || this.currentHealth <= 0)
-	  activeScene = new Scene(menuSceneInit, menuSceneLoop);
+	  activeScene = new Scene(gameOverSceneInit, gameOverSceneLoop);
 }
