@@ -143,12 +143,6 @@ function load(JSONurl, name) {
 	  */
     if(JSONobj.modelURL.endsWith(".js")) {
     
-    
-    
-    
-    
-    
-    
       console.log(object);
       for ( var k in materials ) {
 
@@ -172,12 +166,8 @@ function load(JSONurl, name) {
         resources[name+"mesh"].geometry.rotateZ(JSONobj.rotation[2]);
 				
       }
-      
-      
-      
-	
-	
     } else {	  object.traverse(function (child) {
+			console.log(name+ "---------------------------------------------------------------");
 		    if (child instanceof THREE.Mesh) {
 			    if(resources[name+"texture"]){
 				    child.material.map = resources[name+"texture"];
@@ -187,6 +177,7 @@ function load(JSONurl, name) {
 				    child.material = new THREE.MeshPhongMaterial({color: 0xdddddd, specular: 0xdddddd, shininess: 30, shading: THREE.FlatShading, side: THREE.DoubleSide});;
 			    }
 			    resources[name+"mesh"] = child;
+					
 		    }
 	    });
 	    
@@ -199,9 +190,5 @@ function load(JSONurl, name) {
       resources[name+"mesh"].geometry.rotateZ(JSONobj.rotation[2]);
     }
 	  }
-	  
-    
-	  
 	});
-	
 }

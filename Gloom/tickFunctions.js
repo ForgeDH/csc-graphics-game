@@ -15,7 +15,9 @@ var killObject = function(deadObj){
 		GAME.world.remove(deadObj.body);
 		GAME.scene.remove(deadObj.mesh.parent);
 		
+		var temp = Math.random();
 		if(temp > 0.01) {
+			console.log("health");
 		  addEntity(new HPack(deadObj));
 		}
 	}
@@ -115,7 +117,7 @@ hitboxFunctions.hitscanHitbox = function(attacker){
 
 
 			  //DEBUG: make a sphere at point of intersection
-  			console.log(intersect[0].point);
+  			//console.log(intersect[0].point);
         var sphere = new THREE.Mesh( new THREE.SphereGeometry( 0.2, 5, 5 ), new THREE.MeshBasicMaterial( {color: 0xffff00} ) );
         GAME.scene.add( sphere );
         setTimeout(function() {GAME.scene.remove(this);}.bind(sphere), 300);
