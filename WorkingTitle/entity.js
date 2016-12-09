@@ -19,7 +19,6 @@ class Entity{
 		}
 		this.mesh.position.x = JSONobj.boxPos.x;
 		this.mesh.position.y = JSONobj.boxPos.y;
-		console.log(name + ": " + this.mesh.position.y);
 		this.mesh.position.z = JSONobj.boxPos.z;
 		this.mesh.rotation.x = JSONobj.boxRot.x;
 		this.mesh.rotation.y = JSONobj.boxRot.y;
