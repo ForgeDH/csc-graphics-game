@@ -150,7 +150,15 @@ hitboxFunctions.hitscanHitbox = function(attacker){
 
 /* WEAPON ANIMATION FUNCTIONS */
 weaponAnimationFunctions.swingAnimateFunc = function(){
+	var currWeapon = GAME.weapons[GAME.player.activeWeapon];
+	currWeapon.animationFrames -= 1;
+	if(currWeapon.animationFrames > currWeapon.cooldown - 16){
+		currWeapon.rotOffset.y += Math.PI/16;
+	}
 	
+	if(currWeapon.animationFrames == 0){
+		currWeapon.rotOffset.y = currWeapon.baseRotOffset.y;
+	}
 }
 
 weaponAnimationFunctions.boopAnimateFunc = function(){
@@ -162,8 +170,7 @@ weaponAnimationFunctions.boopAnimateFunc = function(){
 weaponCDFunctions.weaponCDTick = function(){
 	if(this.currCD > 0){
 		this.currCD -= 1;
-	}
-}
+	}}
 
 
 
@@ -258,7 +265,7 @@ tickFunctions.boxTick = function(actions){
 	}
 	
 	// update weapon location
-	currWeapon = GAME.weapons[GAME.player.activeWeapon];
+	var currWeapon = GAME.weapons[GAME.player.activeWeapon];
 	if(currWeapon.animationFrames > 0){
 		currWeapon.animate();
 	}
@@ -266,9 +273,9 @@ tickFunctions.boxTick = function(actions){
 	currWeapon.mesh.position.y = GAME.camera.position.y + currWeapon.posOffset.y;
 	currWeapon.mesh.position.z = GAME.camera.position.z + currWeapon.posOffset.z;
 
-	currWeapon.mesh.rotation.x += currWeapon.rotOffset.x;
-	currWeapon.mesh.rotation.y += currWeapon.rotOffset.y;
-	currWeapon.mesh.rotation.z += currWeapon.rotOffset.z;	
+	currWeapon.mesh.rotation.x = currWeapon.rotOffset.x;
+	currWeapon.mesh.rotation.y = currWeapon.rotOffset.y;
+	currWeapon.mesh.rotation.z = currWeapon.rotOffset.z;	
 	
 	
 	// ACTIONS
