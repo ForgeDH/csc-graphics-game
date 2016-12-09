@@ -1,3 +1,9 @@
+Team Members:
+Dylan Hahn
+Jake Inkrote
+Sam Rappl
+Jack Thornton
+
 Scoring
 Part 0: Properly turned in assignment – 10% - DONE
 Part 1: Create title screen and UI – 20% - DONE
