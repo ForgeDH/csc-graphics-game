@@ -126,8 +126,9 @@ var gameSceneInit = function(){
 	for (var arena in ARENAS){
 		for (var obj in ARENAS[arena]){
 			// TODO SWITCH OFF OF ENTITIES
-			GAME.entities.push(new Entity(ARENAS[arena][obj]));
-			setTimeout(function(){addEntity(GAME.entities[0])},100);
+			var entityCreated = new Entity(ARENAS[arena][obj]);
+			GAME.entities.push(entityCreated);
+			setTimeout(function(){addEntity(this)}.bind(entityCreated),100);
 		}
 	}
 	for (var obj in OBJECTS){
