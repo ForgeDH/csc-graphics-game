@@ -21,7 +21,7 @@ Additional Weapons - 2% - DONE (orb)
 Waves - 2% - DONE - (new wave every minute)
 
 Link to play game:
-https://forgedh.github.io/csc-graphics-game/WorkingTitle/
+https://forgedh.github.io/csc-graphics-game/Gloom/
 
 Link to GitHub repository:
 https://github.com/ForgeDH/csc-graphics-game
