@@ -16,7 +16,7 @@ var killObject = function(deadObj){
 		GAME.scene.remove(deadObj.mesh.parent);
 		
 		var temp = Math.random();
-		if(temp > 0.99) {
+		if(temp > 0.01) {
 			console.log("health");
 		  addEntity(new HPack(deadObj));
 		}
