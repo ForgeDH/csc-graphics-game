@@ -1,6 +1,6 @@
 {
 	"name":"zombie",
-	"modelURL":"https://rawgit.com/ForgeDH/csc-graphics-game/master/WorkingTitle/Entities/Enemies/enemy1/test1.js",
+	"modelURL":"https://rawgit.com/ForgeDH/csc-graphics-game/master/WorkingTitle/Entities/Enemies/enemy1/SkeleSk8r.js",
 	"textureURL":"https://rawgit.com/ForgeDH/csc-graphics-game/master/WorkingTitle/Entities/Enemies/enemy1/snek.jpg",
 	"scale": 0.1,
 	"rotation": [0, 1.57, 0],
