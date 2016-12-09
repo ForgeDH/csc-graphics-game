@@ -140,6 +140,7 @@ var gameSceneInit = function(){
 	for (var weapon in WEAPONS){
 		GAME.weapons.push(new Weapon(WEAPONS[weapon]));
 	}
+	console.log(GAME.weapons);
 	// load player
 	GAME.player = new Entity('object1.json', true);
 	Entity.initPlayer();
