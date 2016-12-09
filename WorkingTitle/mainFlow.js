@@ -16,7 +16,7 @@ GAME.structures = [];			// things that are static (walls, floors, etc.)
 GAME.player = {};
 
 /* ARENA FILE STRUCTURE */
-var Arena1 = ["floor1.json"];
+var Arena1 = ["floor1.json", "ceiling1.json"];
 var ARENAS = {"Arena1":Arena1};
 
 /* ENTITY FILE STRUCTURE */
