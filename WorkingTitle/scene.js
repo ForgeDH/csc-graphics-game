@@ -12,7 +12,9 @@ var menuSceneInit = function(){
   this.doomArt = document.getElementById("doomArt");
   this.crosshair = document.getElementById("crosshair1");
   
-  this.buttons = [{x: 500, y: 400, w: 300, h: 100, action: function(){activeScene = new Scene(gameSceneInit, gameSceneLoop);}},
+  this.buttons = [{x: 485, y: 130, w: 225, h: 60, action: function(){activeScene = new Scene(gameSceneInit, gameSceneLoop);}},
+                  {x: 373, y: 263, w: 450, h: 62, action: function(){alert("not yet implemented");}},
+                  {x: 392, y: 395, w: 415, h: 60, action: function(){alert("not yet implemented");}}
                   ];
   
   /************************************************************************
@@ -64,10 +66,6 @@ var menuSceneLoop = function(){
 	this.hudBitmap.font = "Bold 40px Arial";
   this.hudBitmap.textAlign = 'center';
   for(var i = 0; i < this.buttons.length; i++) {
-    this.hudBitmap.fillStyle = "rgba(245,245,245,0.7)";
-    this.hudBitmap.fillRect(this.buttons[i].x,this.buttons[i].y,this.buttons[i].w,this.buttons[i].h);
-    this.hudBitmap.fillStyle = "rgba(0,0,0,1.0)";
-    this.hudBitmap.fillText("DELEELELELE", this.buttons[i].x + this.buttons[i].w / 2, this.buttons[i].y + this.buttons[i].h / 2);
   }
   this.hudBitmap.drawImage(this.crosshair, INPUT.getMouseX()-32, INPUT.getMouseY()-32);
 	this.hudTexture.needsUpdate = true;
@@ -77,9 +75,10 @@ var menuSceneLoop = function(){
 	//handle input
 	while (INPUT.eventsToHandle() == true){
 		//console.log(INPUT.getNextEvent());
-		if(INPUT.getNextEvent().type=="mousedown") {
+		if(INPUT.getNextEvent().type=="mousedown" && document.pointerLockElement) { //only fire if pointer is locked
 		  for(var i = 0; i < this.buttons.length; i++) {
-		    if(INPUT.getMouseX() >= this.buttons[i].x && INPUT.getMouseX() < this.buttons[i].x+this.buttons[i].w) {
+		    if(INPUT.getMouseX() >= this.buttons[i].x && INPUT.getMouseX() < this.buttons[i].x+this.buttons[i].w && 
+   		     INPUT.getMouseY() >= this.buttons[i].y && INPUT.getMouseY() < this.buttons[i].y+this.buttons[i].h) {
 		      this.buttons[i].action();
 		    }
 		  }
@@ -161,6 +160,8 @@ var gameSceneInit = function(){
                   document.getElementById("watson50"),
                   document.getElementById("watson75"),
                   document.getElementById("watson100")];
+  //get other images
+  this.HUDimg = document.getElementById("HUDimgBack");
 
 	// Ok, now we have the cube. Next we'll create the hud. For that we'll
   // need a separate scene which we'll render on top of our 3D scene. We'll
@@ -227,8 +228,8 @@ var gameSceneLoop = function(){
   
   // Whole box
 	this.hudBitmap.strokeStyle = 'rgba(0,0,0,1.0)';     //Outline Black
-	this.hudBitmap.fillStyle = 'rgba(160,150,150,1.0)'; //Fill Grey
-  this.hudBitmap.fillRect(0, 500, 1000, 150);         // whole thing
+	
+  this.hudBitmap.drawImage(this.HUDimg, 0, 500); //Whole panel
   
   //Weapon rectangles
   this.hudBitmap.strokeRect(254, 504, 139, 71);       // weapon rects
@@ -242,7 +243,7 @@ var gameSceneLoop = function(){
   //TODO
   
   //Weapon numbers
-  this.hudBitmap.fillStyle = 'rgba(0,  0,  0,  1.0)';
+/*this.hudBitmap.fillStyle = 'rgba(0,  0,  0,  1.0)';
   this.hudBitmap.font = '16px serif';
   this.hudBitmap.fillText('1', 256, 564);             //Weapon numbers
   this.hudBitmap.fillText('2', 395, 564);
@@ -250,15 +251,16 @@ var gameSceneLoop = function(){
   this.hudBitmap.fillText('4', 256, 635);
   this.hudBitmap.fillText('5', 395, 635);
   this.hudBitmap.fillText('6', 534, 635);
+  //Obsoleted by new back img*/
   
   //Weapon cooldowns
 	this.hudBitmap.fillStyle = 'rgba(250,250,0  ,1.0)'; //Fill Yellow
-  this.hudBitmap.fillRect(255, 570, 137, 4);       // weapon cooldowns [NYI]
-  this.hudBitmap.fillRect(394, 570, 137, 4);
-  this.hudBitmap.fillRect(533, 570, 137, 4);
-  this.hudBitmap.fillRect(255, 641, 137, 4);
-  this.hudBitmap.fillRect(394, 641, 137, 4);
-  this.hudBitmap.fillRect(533, 641, 137, 4);
+  if(GAME.weapons[0]) this.hudBitmap.fillRect(255, 570, 137 * GAME.weapons[0].currCD / GAME.weapons[0].cooldown, 4);       // weapon cooldowns [NYI]
+  if(GAME.weapons[1]) this.hudBitmap.fillRect(394, 570, 137 * GAME.weapons[1].currCD / GAME.weapons[1].cooldown, 4);
+  if(GAME.weapons[2]) this.hudBitmap.fillRect(533, 570, 137 * GAME.weapons[2].currCD / GAME.weapons[2].cooldown, 4);
+  if(GAME.weapons[3]) this.hudBitmap.fillRect(255, 641, 137 * GAME.weapons[3].currCD / GAME.weapons[3].cooldown, 4);
+  if(GAME.weapons[4]) this.hudBitmap.fillRect(394, 641, 137 * GAME.weapons[4].currCD / GAME.weapons[4].cooldown, 4);
+  if(GAME.weapons[5]) this.hudBitmap.fillRect(533, 641, 137 * GAME.weapons[5].currCD / GAME.weapons[5].cooldown, 4);
   
   //Ammo Icons
   //TODO
@@ -273,7 +275,7 @@ var gameSceneLoop = function(){
   
   
   //Health bar
-  this.hudBitmap.fillStyle = 'rgba(0,  0,  0,  1.0)'; //Fill Black
+  //this.hudBitmap.fillStyle = 'rgba(0,  0,  0,  1.0)'; //Fill Black //Obsoleted by back img
   this.hudBitmap.fillRect(780, 560, 200, 40);
   this.hudBitmap.fillStyle = 'rgba(0,255,  0,  1.0)'; //Fill Green
   
