@@ -17,6 +17,10 @@ class Entity{
 		  tmixer.play();
 		  mixer.update(Math.random()*4);
 		}
+		this.mesh.position.x = JSONobj.boxPos.x;
+		this.mesh.position.y = JSONobj.boxPos.y;
+		console.log(name + ": " + this.mesh.position.y);
+		this.mesh.position.z = JSONobj.boxPos.z;
 		this.mesh.entity = this;
 			
 		// make physics
