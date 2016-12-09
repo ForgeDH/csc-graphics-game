@@ -91,7 +91,7 @@ class Entity{
 					var facingAngle = this.entity.mesh.rotation.y - Math.PI/2;
 					var knockbackVec = new CANNON.Vec3(-Math.sin(facingAngle), Math.PI/4, -Math.cos(facingAngle));
 					knockbackVec.normalize();
-					GAME.player.body.velocity.vadd(knockbackVec.scale(20, knockbackVec), GAME.player.body.velocity);
+					GAME.player.body.velocity.vadd(knockbackVec.scale(5, knockbackVec), GAME.player.body.velocity);
 					GAME.player.canJump = false;
 				}
 			});
