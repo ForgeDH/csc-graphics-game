@@ -8,7 +8,7 @@
 	
 	"damage":26,
 	"knockback":5,
-	"cooldown":1,
+	"cooldown":30,
 	
 	"hitFunc":"hitscanHitbox",
 	"tickFunc":"weaponCDTick",
