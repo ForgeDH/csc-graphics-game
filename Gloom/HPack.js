@@ -25,8 +25,20 @@ class HPack{
 		*/
 		this.body.addEventListener("collide",function(otherObj){
 			console.log(otherObj);
-			
-		});
+			var contactNormal = new CANNON.Vec3();
+				var contact = otherObj.contact;
+				if(contact.bi.id == GAME.player.body.id){
+					
+    		  GAME.world.remove(this.body);
+		      GAME.scene.remove(this.mesh.parent);
+		      GAME.scene.remove(this.mesh);
+		      
+		      //caled twice, so whatever
+		      GAME.player.currentHealth++;
+		      if(GAME.player.currentHealth > 100) GAME.player.currentHealth = 100;
+				}
+
+		}.bind(this));
 		
 		this.name = "Hpack";
 }
