@@ -3,7 +3,7 @@ var GAME_WINDOW_HEIGHT = 650;
 var GAME_WINDOW_WIDTH = 1000;
 var GAME = {};
 var activeScene;
-var BASE_URL = "https://raw.githubusercontent.com/ForgeDH/csc-graphics-game/master/WorkingTitle/";
+var BASE_URL = "https://raw.githubusercontent.com/ForgeDH/csc-graphics-game/master/Gloom/";
 var mixer; //TESTING 123 TESTING 123 TESTING 123 TESTING 123 TESTING 123 TESTING 123 TESTING 123 TESTING 123 
 var clock  = new THREE.Clock();
 
