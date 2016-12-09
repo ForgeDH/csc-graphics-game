@@ -167,11 +167,11 @@ weaponAnimationFunctions.boopAnimateFunc = function(){
 	var currWeapon = GAME.weapons[GAME.player.activeWeapon];
 	currWeapon.animationFrames -= 1;
 	if(currWeapon.animationFrames > currWeapon.cooldown - 8){
-		currWeapon.rotOffset.y += Math.PI/16;
+		currWeapon.rotOffset.x -= Math.PI/16;
 	}
 	
 	if(currWeapon.animationFrames == 0){
-		currWeapon.rotOffset.y = currWeapon.baseRotOffset.x;
+		currWeapon.rotOffset.x = currWeapon.baseRotOffset.x;
 	}
 }
 
