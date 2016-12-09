@@ -1,0 +1,17 @@
+{
+	"name":"zombie",
+	"modelURL":"https://rawgit.com/ForgeDH/csc-graphics-game/master/WorkingTitle/Entities/Enemies/enemy1/beholder.js",
+	"textureURL":"https://rawgit.com/ForgeDH/csc-graphics-game/master/WorkingTitle/Entities/Enemies/enemy1/snek.jpg",
+	"scale": 0.5,
+	"rotation": [0, 0, 1.57],
+	
+	"mass":1,
+	"boxSize":{"x":1, "y":1, "z":1},
+	"boxPos":{"x":15, "y":15, "z":-20},
+	"boxRot":{"x":0, "y":0, "z":0},
+	
+	"health":100,
+	"damage":5,
+	
+	"tickFunc":"enemyTick"
+}
