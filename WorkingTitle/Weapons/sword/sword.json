@@ -3,7 +3,7 @@
 	"modelURL":"https://raw.githubusercontent.com/ForgeDH/csc-graphics-game/master/WorkingTitle/Weapons/sword/Sword1.obj",
 	"textureURL":"https://rawgit.com/ForgeDH/csc-graphics-game/master/WorkingTitle/Weapons/sword/sword.jpg",
 
-	"posOffset":{"x":0, "y":0, "z":-2},
+	"posOffset":{"x":-0.5, "y":-1.5, "z":-1},
 	"rotOffset":{"x":0, "y":0, "z":0},
 	
 	"damage":26,
