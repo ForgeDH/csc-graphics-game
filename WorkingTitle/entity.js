@@ -3,7 +3,7 @@ class Entity{
 		var JSONobj = resources[name];
 		
 		// load model
-		console.log(name+"mesh");
+		//console.log(name+"mesh");
 		try {
 		this.mesh = resources[name+"mesh"].parent.clone(undefined, true).children[0];
 		} catch (e){
@@ -85,7 +85,6 @@ class Entity{
 				if(otherObj.body.entity.name == "watson"){
 					if(GAME.player.invincible == 0){
 						GAME.player.currentHealth -= this.entity.damage;
-						console.log(GAME.player.currentHealth);
 						GAME.player.invincible = 5;
 					}
 					var facingAngle = this.entity.mesh.rotation.y - Math.PI/2;
@@ -165,7 +164,7 @@ class Entity{
 				this.mesh.parent.killable = true;
 		}
 		
-		console.log(this.name);
+		//console.log(this.name);
 	}
 	
 	updateMeshToBody(){
