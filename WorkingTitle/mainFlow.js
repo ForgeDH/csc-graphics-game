@@ -188,7 +188,7 @@ function load(JSONurl, name) {
 			    if(resources[name+"texture"]){
 				    child.material.map = resources[name+"texture"];
 			    } else {
-				    child.material = new THREE.MeshPhongMaterial({color: 0xdddddd, specular: 0xdddddd, shininess: 30, shading: THREE.FlatShading});;
+				    child.material = new THREE.MeshPhongMaterial({color: 0xdddddd, specular: 0xdddddd, shininess: 30, shading: THREE.FlatShading, side: THREE.DoubleSide});;
 			    }
 			    resources[name+"mesh"] = child;
 		    }
