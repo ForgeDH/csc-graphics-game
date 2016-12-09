@@ -166,13 +166,13 @@ function load(JSONurl, name) {
         resources[name+"mesh"].geometry.scale.set(JSONobj.scale/100, JSONobj.scale/100, JSONobj.scale/100);
       }
       if(JSONobj.rotation) {
-        resources[name+"mesh"].geometry.rotateX(JSONobj.rotation[0]);
-        resources[name+"mesh"].geometry.rotateY(JSONobj.rotation[1]);
-        resources[name+"mesh"].geometry.rotateZ(JSONobj.rotation[2]);
-				/*
+//        resources[name+"mesh"].geometry.rotateX(JSONobj.rotation[0]);
+  //      resources[name+"mesh"].geometry.rotateY(JSONobj.rotation[1]);
+    //    resources[name+"mesh"].geometry.rotateZ(JSONobj.rotation[2]);
+				
 				resources[name+"mesh"].geometry.rotateX(0);
         resources[name+"mesh"].geometry.rotateY(0);
-				resources[name+"mesh"].geometry.rotateZ(3.14);*/
+				resources[name+"mesh"].geometry.rotateZ(0);
       }
       
       
