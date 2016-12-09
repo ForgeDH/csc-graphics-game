@@ -10,7 +10,7 @@
 	"knockback":50,
 	"range":50,
 	"angle":3.14,
-	"cooldown":60,
+	"cooldown":300,
 	
 	"hitFunc":"coneHitbox",
 	"tickFunc":"weaponCDTick",
