@@ -156,23 +156,20 @@ function load(JSONurl, name) {
 			}
 
 			var skinnedMesh = new THREE.SkinnedMesh(object, new THREE.MultiMaterial(materials));
-			skinnedMesh.scale.set( 0.1, 0.1, 0.1 );
+			skinnedMesh.scale.set( 0.5, 0.5, 0.5 );
 
 			resources[name+"mesh"] = skinnedMesh;
 			
 			new THREE.Object3D().add(skinnedMesh);
 			
       if(JSONobj.scale && typeof resources[name+"mesh"].geometry.scale.set == "function") {
-        resources[name+"mesh"].geometry.scale.set(JSONobj.scale/100, JSONobj.scale/100, JSONobj.scale/100);
+        resources[name+"mesh"].geometry.scale.set(JSONobj.scale/10, JSONobj.scale/10, JSONobj.scale/10);
       }
       if(JSONobj.rotation) {
         resources[name+"mesh"].geometry.rotateX(JSONobj.rotation[0]);
         resources[name+"mesh"].geometry.rotateY(JSONobj.rotation[1]);
         resources[name+"mesh"].geometry.rotateZ(JSONobj.rotation[2]);
 				
-/*				resources[name+"mesh"].geometry.rotateX(0);
-        resources[name+"mesh"].geometry.rotateY(0);
-				resources[name+"mesh"].geometry.rotateZ(0);*/
       }
       
       
