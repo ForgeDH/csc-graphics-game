@@ -21,7 +21,7 @@ var ARENAS = {"Arena1":Arena1};
 
 /* ENTITY FILE STRUCTURE */
 var OBJECTS = {};
-var ENEMIES = {"enemy1":"enemy1.json"};
+var ENEMIES = {"enemy1":"enemy1.json", "enemy2":"enemy2.json"};
 
 /* WEAPON FILE STRUCTURE */
 var WEAPONS = {"sword":"sword.json", "wand":"wand.json", "orb":"orb.json"};

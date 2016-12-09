@@ -218,7 +218,7 @@ var gameSceneLoop = function(){
 	if(GAME.globalTimer % GAME.spawnRate == 0){
 		console.log("NEW WAVE");
 		for (var enemy in ENEMIES){
-			for(var i = 0; i < (20 + (GAME.globalTimer / GAME.spawnRate) * GAME.spawnInc) ; i++) {
+			for(var i = 0; i < (10 + (GAME.globalTimer / GAME.spawnRate) * GAME.spawnInc) ; i++) {
 				var newEnemy = new Entity(ENEMIES[enemy]);
 				GAME.entities.push(newEnemy);
 				addEntity(newEnemy);
