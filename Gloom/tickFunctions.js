@@ -15,7 +15,9 @@ var killObject = function(deadObj){
 		GAME.world.remove(deadObj.body);
 		GAME.scene.remove(deadObj.mesh.parent);
 		
-		addEntity(new HPack(deadObj));
+		if(Math.random() > 0.5) {
+		  addEntity(new HPack(deadObj));
+		}
 	}
 }
 
