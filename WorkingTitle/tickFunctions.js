@@ -28,6 +28,7 @@ var getRandInt = function(min, max) {
 hitboxFunctions.coneHitbox = function(attacker){
 	var weapon = GAME.player.activeWeapon;	
 	if(GAME.weapons[weapon].currCD <= 0){
+		GAME.weapons[weapon].animationFrames = GAME.weapons[weapon].cooldown;
 		var dist;
 		var knockback = new CANNON.Vec3();
 		var entityDir = new CANNON.Vec3();
@@ -61,6 +62,7 @@ hitboxFunctions.coneHitbox = function(attacker){
 hitboxFunctions.hitscanHitbox = function(attacker){
 	var weapon = GAME.player.activeWeapon;
 	if(GAME.weapons[weapon].currCD <= 0){
+		GAME.weapons[weapon].animationFrames = GAME.weapons[weapon].cooldown;
 		var raycaster = new THREE.Raycaster();
 		
 		var knockback = new CANNON.Vec3();
@@ -294,7 +296,6 @@ tickFunctions.boxTick = function(actions){
 		// attack
 		if(action.buttons == 1){
 			GAME.weapons[this.activeWeapon].hit(this);
-			currWeapon.animationFrames = currWeapon.cooldown;
 		}
 		
 		// change weapons
