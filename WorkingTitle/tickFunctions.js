@@ -139,9 +139,6 @@ hitboxFunctions.hitscanHitbox = function(attacker){
 				}
 			}
 			if(isEnemy){
-				console.log("MASSIVE DAMAGE");
-				console.log(hitObj);
-				console.log(hitObj.currentHealth);
 				hitObj.currentHealth -= GAME.weapons[weapon].damage * 100;
 				console.log(hitObj.currentHealth);
 				hitObj.body.velocity.vadd(knockback, hitObj.body.velocity);
