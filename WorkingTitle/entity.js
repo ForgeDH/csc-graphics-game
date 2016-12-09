@@ -9,6 +9,11 @@ class Entity{
 		} catch (e){
 		this.mesh = resources[name+"mesh"].clone(undefined, true);
 		}
+		this.mesh.position.x = JSONobj.boxPos.x;
+		this.mesh.position.y = JSONobj.boxPos.y;
+		this.mesh.position.z = JSONobj.boxPos.z;
+		this.mesh.entity = this;
+
     if(this.mesh.geometry.animations) {
 		  mixer = new THREE.AnimationMixer(this.mesh);
 		  this.mixer = mixer;
@@ -16,13 +21,7 @@ class Entity{
 		  tmixer.play();
 		  mixer.update(Math.random()*4);
 		}
-		this.mesh.position.x = JSONobj.boxPos.x;
-		this.mesh.position.y = JSONobj.boxPos.y;
-		this.mesh.position.z = JSONobj.boxPos.z;
-		this.mesh.rotation.x = JSONobj.boxRot.x;
-		this.mesh.rotation.y = JSONobj.boxRot.y;
-		this.mesh.rotation.z = JSONobj.boxRot.z;
-		this.mesh.entity = this;
+
 			
 		// make physics
 		var boxShape = new CANNON.Box(new CANNON.Vec3(JSONobj.boxSize.x,JSONobj.boxSize.y,JSONobj.boxSize.z));
