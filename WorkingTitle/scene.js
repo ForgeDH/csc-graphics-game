@@ -134,6 +134,14 @@ var gameSceneInit = function(){
 	for (var obj in OBJECTS){
 		GAME.entities.push(new Entity(OBJECTS[obj]));
 	}
+	for (var weapon in WEAPONS){
+		GAME.weapons.push(new Weapon(WEAPONS[weapon]));
+	}
+	// load player
+	GAME.player = new Entity('object1.json', true);
+	Entity.initPlayer();
+	setTimeout(function(){addEntity(GAME.player)}, 100);
+	GAME.entities.push(GAME.player);
 	for (var enemy in ENEMIES){
 	  for(var i = 0; i < 20; i++) {
 	    var newEnemy = new Entity(ENEMIES[enemy]);
@@ -141,15 +149,13 @@ var gameSceneInit = function(){
 		  addEntity(newEnemy);
 		}
 	}
-	for (var weapon in WEAPONS){
-		GAME.weapons.push(new Weapon(WEAPONS[weapon]));
-	}
 	
 	// load player
+	/*
 	GAME.player = new Entity('object1.json', true);
 	Entity.initPlayer();
 	setTimeout(function(){addEntity(GAME.player)}, 100);
-	GAME.entities.push(GAME.player);
+	GAME.entities.push(GAME.player);*/
 	
   /************************************************************************
   ** SETUP FOR UI

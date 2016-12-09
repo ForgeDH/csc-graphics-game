@@ -16,6 +16,7 @@ class Entity{
 		  tmixer.play();
 		  mixer.update(Math.random()*4);
 		}
+		// Hardcoded walls make me cry
 		/*
 		this.mesh.position.x = JSONobj.boxPos.x;
 		this.mesh.position.y = JSONobj.boxPos.y;
@@ -127,6 +128,7 @@ class Entity{
 				}
 			});
 		}
+		
 		this.name = JSONobj.name;
 		// add new enemy to enemies list
 		var newName = true;
@@ -143,6 +145,17 @@ class Entity{
 				newEnemy.damage = JSONobj.damage;
 				GAME.enemies.push(newEnemy);
 			}
+			
+			// randomize spawn location
+			this.body.position.x = GAME.player.body.position.x;
+			this.body.position.z = GAME.player.body.position.z;
+			var spawnDist = Math.sqrt(Math.pow(this.body.position.x-GAME.player.body.position.x,2) + Math.pow(this.body.position.z-GAME.player.body.position.z,2));
+			while(spawnDist < 20){
+				this.body.position.x = Math.random() * 200 - 100;
+				this.body.position.z = Math.random() * 200 - 100;
+				spawnDist = Math.sqrt(Math.pow(this.body.position.x-GAME.player.body.position.x,2) + Math.pow(this.body.position.z-GAME.player.body.position.z,2));
+			}
+			
 		}
 		
 		if(this.health !== undefined){
