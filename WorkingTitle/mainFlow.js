@@ -162,10 +162,6 @@ function load(JSONurl, name) {
 			
 			new THREE.Object3D().add(skinnedMesh);
 			
-			
-			mixer = new THREE.AnimationMixer( skinnedMesh );
-			mixer.clipAction( skinnedMesh.geometry.animations[ 0 ] ).play();
-
       if(JSONobj.scale && typeof resources[name+"mesh"].geometry.scale.set == "function") {
         resources[name+"mesh"].geometry.scale.set(JSONobj.scale/100, JSONobj.scale/100, JSONobj.scale/100);
       }
