@@ -1,6 +1,6 @@
 {
 	"name":"medPac",
-	"modelURL":"https://raw.githubusercontent.com/ForgeDH/csc-graphics-game/master/Gloom/Entities/MedPac.obj",
+	"modelURL":"https://raw.githubusercontent.com/ForgeDH/csc-graphics-game/master/Gloom/Entities/medPac/MedPac.obj",
 	"textureURL":"https://rawgit.com/ForgeDH/csc-graphics-game/master/Gloom/Entities/medPac/medPac.jpg",
 	"scale": 1.0,
 	"rotation": [0.0, 0.0, 0.0],

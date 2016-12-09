@@ -104,7 +104,6 @@ function load(JSONurl, name) {
 	resources[name] = JSONobj;
 	
 	// load texture
-	console.log(JSONurl);
 	if(JSONobj.textureURL != ""){
 		var manager = new THREE.LoadingManager();
 		manager.onProgress = function ( item, loaded, total ) {
