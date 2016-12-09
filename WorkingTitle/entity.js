@@ -82,7 +82,7 @@ class Entity{
 			this.damage = JSONobj.damage;
 			// add collision detector
 			this.body.addEventListener("collide", function(otherObj){
-				if(otherObj.body.entity.name == "watson"){
+				if(otherObj.body.entity && otherObj.body.entity.name == "watson"){
 					if(GAME.player.invincible == 0){
 						GAME.player.currentHealth -= this.entity.damage;
 						GAME.player.invincible = 5;

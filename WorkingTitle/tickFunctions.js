@@ -14,6 +14,8 @@ var killObject = function(deadObj){
 		console.log("KILLED");
 		GAME.world.remove(deadObj.body);
 		GAME.scene.remove(deadObj.mesh.parent);
+		
+		addEntity(new HPack(deadObjasd));
 	}
 }
 
