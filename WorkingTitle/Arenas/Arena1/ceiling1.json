@@ -5,6 +5,6 @@
 	"mass":0,
 	"boxSize":{"x":100, "y":0.5, "z":100},
 	"boxPos":{"x":0, "y":200, "z":0},
-	"boxRot":{"x":0, "y":0, "z":0},
+	"boxRot":{"x":0, "y":3.14159265359, "z":0},
 	"tickFunc":"noTick"
 }
