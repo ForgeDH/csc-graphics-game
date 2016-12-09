@@ -15,7 +15,7 @@ var menuSceneInit = function(){
   this.buttons = [{x: 485, y: 130, w: 225, h: 60, action: function(){activeScene = new Scene(gameSceneInit, gameSceneLoop);}},
                   {x: 373, y: 263, w: 450, h: 62, action: function(){alert("not yet implemented");}},
                   {x: 392, y: 395, w: 415, h: 60, action: function(){activeScene = new Scene(controlsSceneInit, controlsSceneLoop);}},
-                  {x: 900, y: 600, w: 100, h: 50, action: function(){alert("not yet implemented");}}
+                  {x: 900, y: 600, w: 100, h: 50, action: function(){activeScene = new Scene(creditsSceneInit, creditsSceneLoop);}}
                   ];
   
   /************************************************************************
