@@ -1,0 +1,18 @@
+{
+	"name":"orb",
+	"modelURL":"https://raw.githubusercontent.com/ForgeDH/csc-graphics-game/master/WorkingTitle/Weapons/orb/Orb1.obj",
+	"textureURL":"https://rawgit.com/ForgeDH/csc-graphics-game/master/WorkingTitle/Weapons/orb/orb.jpg",
+
+	"posOffset":{"x":0, "y":0, "z":0},
+	"rotOffset":{"x":0, "y":0, "z":0},
+	
+	"damage":5,
+	"knockback":50,
+	"range":50,
+	"angle":3.14,
+	"cooldown":60,
+	
+	"hitFunc":"coneHitbox",
+	"tickFunc":"weaponCDTick",
+	"animationFunc":"swingAnimateFunc"
+}
