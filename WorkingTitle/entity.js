@@ -71,7 +71,15 @@ class Entity{
 				}
 				
 				if(contactNormal.dot(new CANNON.Vec3(0,1,0)) > 0.5){
-					GAME.player.canJump = true;
+          // Only let the player jump if they didn't collide with an enemy
+          var name = otherObj.body.entity.name;
+          var canJump = true;
+          for (var x = 0; x < GAME.enemies.length; x++){
+            if (GAME.enemies[x].name == name){
+              canJump = false;
+            }
+          }
+					GAME.player.canJump = canJump;
 				}
 			});
 		}
