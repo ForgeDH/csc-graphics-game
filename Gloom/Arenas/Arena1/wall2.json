@@ -1,7 +1,7 @@
 {
 	"name":"arena",
-	"modelURL":"https://rawgit.com/ForgeDH/csc-graphics-game/master/Gloom/Arenas/Arena1/wall.obj",
-	"textureURL":"https://rawgit.com/ForgeDH/csc-graphics-game/master/Gloom/Arenas/Arena1/wall.jpg",
+	"modelURL":"https://cdn.jsdelivr.net/gh/ForgeDH/csc-graphics-game/Gloom/Arenas/Arena1/wall.obj",
+	"textureURL":"https://cdn.jsdelivr.net/gh/ForgeDH/csc-graphics-game/Gloom/Arenas/Arena1/wall.jpg",
 	"mass":0,
 	"boxSize":{"x":100, "y":100, "z":0.5},
 	"boxPos":{"x":0, "y":0, "z":-100},

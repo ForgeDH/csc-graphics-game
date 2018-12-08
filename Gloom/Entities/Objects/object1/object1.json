@@ -1,7 +1,7 @@
 {
 	"name":"watson",
 	"modelURL":"https://raw.githubusercontent.com/ForgeDH/csc-graphics-game/master/Gloom/box.obj",
-	"textureURL":"https://rawgit.com/ForgeDH/csc-graphics-game/master/Gloom/Entities/Objects/object1/MELogo.jpg",
+	"textureURL":"https://cdn.jsdelivr.net/gh/ForgeDH/csc-graphics-game/Gloom/Entities/Objects/object1/MELogo.jpg",
 	"scale": 1.0,
 	"rotation": [0.0, 0.0, 0.0],
 	
