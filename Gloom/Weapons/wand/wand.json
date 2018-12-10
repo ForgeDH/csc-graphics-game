@@ -1,7 +1,7 @@
 {
 	"name":"wand",
 	"modelURL":"https://raw.githubusercontent.com/ForgeDH/csc-graphics-game/master/Gloom/Weapons/wand/Wand1.obj",
-	"textureURL":"https://rawgit.com/ForgeDH/csc-graphics-game/master/Gloom/Weapons/wand/wand.jpg",
+	"textureURL":"https://cdn.jsdelivr.net/gh/ForgeDH/csc-graphics-game/Gloom/Weapons/wand/wand.jpg",
 
 	"posOffset":{"x":0, "y":-1, "z":-1},
 	"rotOffset":{"x":-1.57, "y":0, "z":0},
